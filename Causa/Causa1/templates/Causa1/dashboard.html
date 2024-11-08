@@ -1,0 +1,88 @@
+<!-- templates/Causa1/dashboard.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script>
+        setInterval(function() {
+            location.reload();
+        }, 30000);  // 30000 milisegundos = 30 segundos
+    </script>
+</head>
+<body>
+    <h1>Dashboard de Notificaciones</h1>
+
+    <!-- Bloque de mensajes -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Leyenda de colores del sistema de semáforo -->
+    <div class="color-legend">
+        <span class="legend-green">Estampada y Notificada</span>
+        <span class="legend-yellow">No Estampada y Notificada</span>
+        <span class="legend-red">No Estampada y No Notificada</span>
+    </div>
+
+    <!-- Tabla de datos con el sistema de semáforo -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha Notificación</th>
+                <th>Rol</th>
+                <th>Tribunal</th>
+                <th>Demandante</th>
+                <th>Demandado</th>
+                <th>Estado Notificación</th>
+                <th>Estado Causa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for causa in causas %}
+            <tr
+                {% if causa.estadoNoti and causa.estadoCausa %}
+                    class="row-green"
+                {% elif causa.estadoNoti or causa.estadoCausa%}
+                    class="row-yellow"
+                {% elif not causa.estadoNoti and not causa.estadoCausa %}
+                    class="row-red"
+                {% endif %}
+            >
+                <td>{{ causa.fechaNotificacion }}</td>
+                <td>{{ causa.numjui }}</td>
+                <td>{{ causa.nombTribunal }}</td>
+                <td>{{ causa.demandante }}</td>
+                <td>{{ causa.demandado }}</td>
+                
+                <!-- Botón para cambiar estado de notificación -->
+                <td>
+                    <form method="post" action="{% url 'notificar' causa.id %}">
+                        {% csrf_token %}
+                        <button type="submit">
+                            {{ causa.estadoNoti|yesno:"Notificada,No Notificada" }}
+                        </button>
+                    </form>
+                </td>
+
+                <!-- Botón para cambiar estado de estampado -->
+                <td>
+                    <a href="{% url 'estampado' causa.id %}" class="btn">
+                        {{ causa.estadoCausa|yesno:"Estampada,No Estampada" }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No hay notificaciones disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

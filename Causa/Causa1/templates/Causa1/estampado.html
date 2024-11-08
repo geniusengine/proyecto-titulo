@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estampado</title>
+</head>
+<body>
+    <h1>Estampado para {{ notificacion.demandante }} CON {{ notificacion.demandado }}</h1>
+    <p><strong>Tribunal:</strong> {{ notificacion.nombTribunal }}</p>
+    <p><strong>Rol:</strong> {{ notificacion.numjui }}</p>
+
+    <h2>Opciones de Estampado</h2>
+    <div>
+        <form method="get" action="{% url 'generar_documento' notificacion.id 'negativa52' %}">
+            <button type="submit">Descargar Negativa 52</button>
+        </form>
+        <form method="get" action="{% url 'generar_documento' notificacion.id 'positivaP' %}">
+            <button type="submit">Descargar Positiva P</button>
+        </form>
+        <form method="get" action="{% url 'generar_documento' notificacion.id 'busquedaN' %}">
+            <button type="submit">Descargar Búsqueda y Notificación</button>
+        </form>
+    </div>
+</body>
+</html>
