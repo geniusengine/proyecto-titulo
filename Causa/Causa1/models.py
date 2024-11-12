@@ -1,9 +1,6 @@
 from django.db import models
 
 # Create your models here.
-
-
-
 class Notificacion(models.Model):
     fechaNotificacion = models.DateTimeField()  # Correspondiente a `fechaNotificacion DATETIME`
     numjui = models.CharField(max_length=255)
@@ -56,5 +53,57 @@ class Estampado(models.Model):
     soli = models.TextField()
     arancel = models.DecimalField(max_digits=10, decimal_places=2)
 
+    class Meta:
+        managed = False
+        db_table = 'demanda'
+    
     def __str__(self):
         return f"{self.numjui} - {self.demandante} CON {self.demandado}"
+    
+from django.db import models
+
+class Demanda(models.Model):
+    numjui = models.CharField(max_length=255)
+    nombTribunal = models.CharField(max_length=255)
+    demandante = models.CharField(max_length=255)
+    demandado = models.CharField(max_length=255)
+    repre = models.CharField(max_length=255)
+    mandante = models.CharField(max_length=255)
+    domicilio = models.CharField(max_length=255)
+    comuna = models.CharField(max_length=255)
+    encargo = models.CharField(max_length=255)
+    soli = models.CharField(max_length=255)
+    arancel = models.IntegerField()
+    actu = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'demanda'
+        unique_together = ('numjui', 'nombTribunal')
+
+    def __str__(self):
+        return f"{self.numjui} - {self.nombTribunal} - {self.demandante} vs {self.demandado}"
+class AUD_notificacion(models.Model):
+    fechaNotificacion = models.DateTimeField()
+    numjui = models.CharField(max_length=255)
+    nombTribunal = models.CharField(max_length=255)
+    demandante = models.CharField(max_length=255)
+    demandado = models.CharField(max_length=255)
+    repre = models.CharField(max_length=255)
+    mandante = models.CharField(max_length=255)
+    domicilio = models.CharField(max_length=255)
+    comuna = models.CharField(max_length=255)
+    encargo = models.CharField(max_length=255)
+    soli = models.CharField(max_length=255)
+    arancel = models.IntegerField()
+    estadoNoti = models.IntegerField()
+    estadoCausa = models.IntegerField()
+    actu = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'AUD_notificacion'
+    
+    def __str__(self):
+        return f'{self.numjui} - {self.demandante} vs {self.demandado}'
+    

@@ -7,13 +7,47 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script>
-        setInterval(function() {
-            location.reload();
-        }, 30000);  // 30000 milisegundos = 30 segundos
+       
+
+        // Función para filtrar la tabla
+        function buscarDemanda() {
+            var input = document.getElementById("buscador");
+            var filter = input.value.toUpperCase();
+            var table = document.getElementById("tablaDemandas");
+            var tr = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < tr.length; i++) {
+                var td = tr[i].getElementsByTagName("td");
+                var encontrado = false;
+
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        var txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                }
+                tr[i].style.display = encontrado ? "" : "none";
+            }
+        }
     </script>
 </head>
 <body>
     <h1>Dashboard de Notificaciones</h1>
+
+    <!-- Botones para las acciones adicionales -->
+    <div class="actions">
+        <a href="{% url 'crear_demanda' %}" class="btn">Crear Demanda</a>
+        <a href="{% url 'dashboard_historico' %}" class="btn">Dashboard Histórico</a>
+        <a href="{% url 'logout' %}" class="btn">Cerrar Sesión</a>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-bar">
+        <input type="text" id="buscador" onkeyup="buscarDemanda()" placeholder="Buscar demanda...">
+    </div>
 
     <!-- Bloque de mensajes -->
     {% if messages %}
@@ -32,7 +66,7 @@
     </div>
 
     <!-- Tabla de datos con el sistema de semáforo -->
-    <table border="1">
+    <table id="tablaDemandas" border="1">
         <thead>
             <tr>
                 <th>Fecha Notificación</th>
@@ -40,6 +74,14 @@
                 <th>Tribunal</th>
                 <th>Demandante</th>
                 <th>Demandado</th>
+                <th>Representante</th>
+                <th>Mandante</th>
+                <th>Domicilio</th>
+                <th>Comuna</th>
+                <th>Encargo</th>
+                <th>Resultado</th>
+                <th>Arancel</th>
+                <th>Actuacion</th>
                 <th>Estado Notificación</th>
                 <th>Estado Causa</th>
             </tr>
@@ -60,8 +102,15 @@
                 <td>{{ causa.nombTribunal }}</td>
                 <td>{{ causa.demandante }}</td>
                 <td>{{ causa.demandado }}</td>
-                
-                <!-- Botón para cambiar estado de notificación -->
+                <td>{{ causa.repre }}</td>
+                <td>{{ causa.mandante }}</td>
+                <td>{{ causa.domicilio }}</td>
+                <td>{{ causa.comuna }}</td>
+                <td>{{ causa.encargo }}</td>
+                <td>{{ causa.soli }}</td>
+                <td>{{ causa.arancel }}</td>
+                <td>{{ causa.actu }}</td>
+                               <!-- Botón para cambiar estado de notificación -->
                 <td>
                     <form method="post" action="{% url 'notificar' causa.id %}">
                         {% csrf_token %}
@@ -73,9 +122,20 @@
 
                 <!-- Botón para cambiar estado de estampado -->
                 <td>
-                    <a href="{% url 'estampado' causa.id %}" class="btn">
-                        {{ causa.estadoCausa|yesno:"Estampada,No Estampada" }}
+                    <form method="post" action="{% url 'estampar' causa.id %}">
+                        {% csrf_token %}
+                        <label for="tipo_estampado">Tipo de Estampa:</label>
+                        <select name="tipo_estampado" id="tipo_estampado" required>
+                            <option value="negativa52">Búsqueda Negativa</option>
+                            <option value="positivaP">Búsqueda Positiva</option>
+                            <option value="busquedaN">Búsqueda y Notificación</option>
+                        </select>
+                        <button type="submit">
+                            {{ causa.estadoCausa|yesno:"Estampada,No Estampada" }}
+                        </button>
+                    </form>
                 </td>
+                
             </tr>
             {% empty %}
             <tr>

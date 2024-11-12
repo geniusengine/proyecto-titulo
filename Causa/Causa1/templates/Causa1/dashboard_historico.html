@@ -1,0 +1,79 @@
+{% comment %}
+ _______       _            _     _          ______        _                 _ 
+(_______)     (_)       _  (_)   | |        (____  \      (_)               | |
+ _______  ____ _  ___ _| |_ _  __| |_____    ____)  ) ____ _ _____ ____   __| |
+|  ___  |/ ___) |/___|_   _) |/ _  | ___ |  |  __  ( / ___) (____ |  _ \ / _  |
+| |   | | |   | |___ | | |_| ( (_| | ____|  | |__)  ) |   | / ___ | | | ( (_| |
+|_|   |_|_|   |_(___/   \__)_|\____|_____)  |______/|_|   |_\_____|_| |_|\____|
+    
+Auteur: danie(danie.pro@gmail.com) 
+dashboard_historico.html(Ɔ) 2024
+Description : Saisissez la description puis « Tab »
+Créé le :  lundi 11 novembre 2024 à 13:27:14 
+Dernière modification : lundi 11 novembre 2024 à 14:17:10
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Histórico</title>
+    
+    
+</head>
+<body>
+    <h1>Dashboard Histórico</h1>
+
+    <!-- Botón para volver al dashboard principal -->
+    <a href="{% url 'dashboard' %}">Volver al Dashboard Principal</a>
+    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+
+    <!-- Tabla para mostrar el historial de notificaciones -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha Notificación</th>
+                <th>Rol</th>
+                <th>Tribunal</th>
+                <th>Demandante</th>
+                <th>Demandado</th>
+                <th>Representante</th>
+                <th>Mandante</th>
+                <th>Domicilio</th>
+                <th>Comuna</th>
+                <th>Encargo</th>
+                <th>Resultado</th>
+                <th>Arancel</th>
+                <th>Actuacion</th>
+                <th>Estado Notificación</th>
+                <th>Estado Causa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in historico %}
+            <tr>
+                <td>{{ item.fechaNotificacion }}</td>
+                <td>{{ item.numjui }}</td>
+                <td>{{ item.nombTribunal }}</td>
+                <td>{{ item.demandante }}</td>
+                <td>{{ item.demandado }}</td>
+                <td>{{ item.repre }}</td>
+                <td>{{ item.mandante }}</td>
+                <td>{{ item.domicilio }}</td>
+                <td>{{ item.comuna }}</td>
+                <td>{{ item.encargo }}</td>
+                <td>{{ item.soli }}</td>
+                <td>{{ item.arancel }}</td>
+                <td>{{ item.actu }}</td>
+                <td>{{ item.estadoNoti|yesno:"Notificada,No Notificada" }}</td>
+                <td>{{ item.estadoCausa|yesno:"Estampada,No Estampada" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="15">No hay registros históricos disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

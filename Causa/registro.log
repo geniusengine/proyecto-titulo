@@ -2333,3 +2333,308 @@ Traceback (most recent call last):
 AttributeError: 'Notificacion' object has no attribute 'nomb_tribunal'
 2024-11-08 02:06:21,885 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
 2024-11-08 10:45:26,500 - WARNING - Not Found: /favicon.ico
+2024-11-09 16:54:25,866 - WARNING - Not Found: /favicon.ico
+2024-11-09 16:54:41,221 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 225, in crear_demanda
+    return render(request, 'crear_demanda.html', {'form': form})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: crear_demanda.html
+2024-11-09 16:56:43,758 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 225, in crear_demanda
+    return render(request, 'crear_demanda.html', {'form': form})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: crear_demanda.html
+2024-11-09 16:57:42,409 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 225, in crear_demanda
+    return render(request, 'crear_demanda.html', {'form': form})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: crear_demanda.html
+2024-11-09 17:05:40,182 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 225, in crear_demanda
+    return render(request, 'crear_demanda.html', {'form': form})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: crear_demanda.html
+2024-11-09 17:06:54,434 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\forms.py changed, reloading.
+2024-11-09 17:09:38,769 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 12:39:17,975 - WARNING - Not Found: /favicon.ico
+2024-11-11 13:00:58,401 - ERROR - Internal Server Error: /Dashboard/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 144, in dashboard
+    return render(request, 'Causa1/dashboard.html', {'causas': causas})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'estampar' not found. 'estampar' is not a valid view function or pattern name.
+2024-11-11 13:01:16,238 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 13:03:10,508 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 13:03:34,621 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 13:04:06,777 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa\urls.py changed, reloading.
+2024-11-11 13:08:58,448 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 13:10:33,072 - ERROR - Internal Server Error: /Dashboard/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 151, in dashboard
+    return render(request, 'Causa1/dashboard.html', {'causas': causas})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 1008, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 969, in render_annotated
+    return self.render(context)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard_historico' not found. 'dashboard_historico' is not a valid view function or pattern name.
+2024-11-11 13:21:11,752 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 13:21:48,922 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa\urls.py changed, reloading.
+2024-11-11 13:26:52,094 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\models.py changed, reloading.
+2024-11-11 13:27:53,303 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 13:28:08,203 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 14:16:51,727 - ERROR - Internal Server Error: /dashboard_historico/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+KeyError: 'static'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 250, in dashboard_historico
+    return render(request, 'Causa1/dashboard_historico.html', {'historico': historico})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 573, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 21: 'static'. Did you forget to register or load this tag?
+2024-11-11 14:28:42,991 - WARNING - Not Found: /favicon.ico
+2024-11-11 14:32:55,685 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\models.py changed, reloading.
+2024-11-11 14:46:00,633 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\models.py changed, reloading.
+2024-11-11 15:32:25,897 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 15:33:03,907 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 276, in crear_demanda
+    return render(request, 'crear_demanda.html')
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: crear_demanda.html
+2024-11-11 15:33:58,833 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 15:34:26,430 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 276, in crear_demanda
+    return render(request, 'Cause1/crear_demanda.html')
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: Cause1/crear_demanda.html
+2024-11-11 15:34:36,145 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 15:40:23,105 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 15:47:35,685 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 15:48:15,502 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 15:51:18,213 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 276, in crear_demanda
+    return render(request, 'Causa1/crear_demanda.html', {'form': form})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    sequence = parser.compile_filter(bits[in_index + 1])
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '['nombTribunal'].choices' from 'form.fields['nombTribunal'].choices'
+2024-11-11 15:51:30,754 - ERROR - Internal Server Error: /crear_demanda/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\causa\Causa1\views.py", line 280, in crear_demanda
+    return render(request, 'Causa1/crear_demanda.html', {'form': form})
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    sequence = parser.compile_filter(bits[in_index + 1])
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 605, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\template\base.py", line 706, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '['nombTribunal'].choices' from 'form.fields['nombTribunal'].choices'
+2024-11-11 15:52:57,451 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 15:55:46,363 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 16:01:07,056 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.
+2024-11-11 16:04:21,875 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa\Causa1\views.py changed, reloading.

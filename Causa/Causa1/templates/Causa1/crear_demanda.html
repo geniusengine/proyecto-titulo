@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Demanda</title>
+</head>
+<body>
+    <h1>Crear Demanda</h1>
+
+    <form method="post" action="{% url 'crear_demanda' %}">
+        {% csrf_token %}
+
+        <!-- Campos de entrada de texto -->
+        <label for="numjui">Número de Juicio:</label>
+        <input type="text" id="numjui" name="numjui" required><br>
+
+        <label for="demandante">Demandante:</label>
+        <input type="text" id="demandante" name="demandante" required><br>
+
+        <label for="demandado">Demandado:</label>
+        <input type="text" id="demandado" name="demandado" required><br>
+
+        <label for="repre">Representante:</label>
+        <input type="text" id="repre" name="repre" required><br>
+
+        <label for="mandante">Mandante:</label>
+        <input type="text" id="mandante" name="mandante" required><br>
+
+        <label for="domicilio">Domicilio:</label>
+        <input type="text" id="domicilio" name="domicilio" required><br>
+
+        <label for="comuna">Comuna:</label>
+        <input type="text" id="comuna" name="comuna" required><br>
+
+        <label for="encargo">Encargo:</label>
+        <input type="text" id="encargo" name="encargo" required><br>
+
+        <label for="soli">Solicitud:</label>
+        <input type="text" id="soli" name="soli" required><br>
+
+        <!-- Campo desplegable para nombre del tribunal -->
+        <label for="nombTribunal">Nombre del Tribunal:</label>
+        <select id="nombTribunal" name="nombTribunal" required>
+            <option value="" disabled selected>Selecciona un tribunal</option>
+            {% for tribunal, nombre in tribunal_choices %}
+            <option value="{{ tribunal }}">{{ nombre }}</option>
+            {% endfor %}
+        </select><br>
+
+        <!-- Campo desplegable para actuación -->
+        <label for="actu">Actuación:</label>
+        <select id="actu" name="actu" required>
+            <option value="" disabled selected>Selecciona una actuación</option>
+            {% for actu, nombre in actu_choices %}
+            <option value="{{ actu }}">{{ nombre }}</option>
+            {% endfor %}
+        </select><br>
+
+        <!-- Campo de búsqueda para aranceles -->
+        <label for="arancel">Arancel:</label>
+        <input list="aranceles" id="arancel" name="arancel" required placeholder="Buscar y seleccionar arancel">
+        <datalist id="aranceles">
+            {% for arancel, valor in arancel_choices %}
+            <option value="{{ valor }}">{{ arancel }} - ${{ valor }}</option>
+            {% endfor %}
+        </datalist><br>
+
+        <button type="submit">Guardar Demanda</button>
+    </form>
+
+    <a href="{% url 'dashboard' %}">Volver al Dashboard</a>
+
+</body>
+</html>
+

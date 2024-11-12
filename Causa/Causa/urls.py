@@ -24,7 +24,10 @@ urlpatterns = [
     path('register/', views.register_view, name='register'),
     path('Dashboard/', views.dashboard, name='dashboard'),
     path('notificar/<int:causa_id>/', views.notificar, name='notificar'),
-   
+    path('crear_demanda/', views.crear_demanda, name='crear_demanda'),
     path('estampado/<int:estampado_id>/', views.estampado, name='estampado'),
-    path('estampado/<int:estampado_id>/descargar/<str:tipo_estampado>/', views.generar_documento, name='generar_documento'),
+    path('estampar/<int:causa_id>/', views.estampar, name='estampar'),
+    path('descargar_documento/<int:estampado_id>/<str:tipo_estampado>/', views.descargar_documento, name='descargar_documento'),
+    path('dashboard_historico/', views.dashboard_historico, name='dashboard_historico'),
+    path('logout/', views.logout_view, name='logout'),
 ]
