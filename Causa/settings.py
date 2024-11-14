@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-tw0*quql!1kch08w9(#w$c_(mz00maly6fi6xh7pcop$w&kno6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','127.0.0.1:8000','127.0.0.1:8001','notificame-ctardzbjddhuh3e3.westus3-01.azurewebsites.net']
+ALLOWED_HOSTS = ['notificame-ctardzbjddhuh3e3.westus3-01.azurewebsites.net','127.0.0.1','127.0.0.1:8000','127.0.0.1:8001',]
 
 CSRF_TRUSTED_ORIGINS = ['https://notificame-ctardzbjddhuh3e3.westus3-01.azurewebsites.net']
 
