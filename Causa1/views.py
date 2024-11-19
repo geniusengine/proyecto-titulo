@@ -157,11 +157,7 @@ def register_view(request):
 
 
 #Dashboar 
-from django.utils import timezone
-from datetime import timedelta
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from .models import Notificacion, Usuario
+
 
 def dashboard(request):
     # Verificar si el usuario ha iniciado sesión
@@ -292,6 +288,11 @@ def estampado(request, estampado_id):
 #crear demanda
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import DemandaForm
+from .models import Demanda
+
 def crear_demanda(request):
     if request.method == "POST":
         form = DemandaForm(request.POST)
@@ -302,31 +303,31 @@ def crear_demanda(request):
                 arancel_nombre, arancel_valor = arancel_data.split('|')  # Dividir en nombre y monto
             except ValueError:
                 # Manejar caso de formato incorrecto
-                messages.error(request, "El formato del arancel es inválido.")
+                messages.error(request, "El formato del arancel es inválido. Selecciona una opción válida del listado.")
                 return redirect('crear_demanda')
-            
-            # Guardar en la tabla 'demanda'
-            with connection.cursor() as cursor:
-                cursor.execute("""
-                    INSERT INTO demanda (numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """, [
-                    form.cleaned_data['numjui'],
-                    form.cleaned_data['nombTribunal'],
-                    form.cleaned_data['demandante'],
-                    form.cleaned_data['demandado'],
-                    form.cleaned_data['repre'],
-                    form.cleaned_data['mandante'],
-                    form.cleaned_data['domicilio'],
-                    form.cleaned_data['comuna'],
-                    form.cleaned_data['encargo'],
-                    form.cleaned_data['soli'],
-                    int(arancel_valor),  # Guardar el valor del arancel como número
-                    arancel_nombre,      # Guardar el nombre del arancel
-                    form.cleaned_data['actu']
-                ])
-            messages.success(request, "Demanda creada exitosamente.")
-            return redirect('dashboard')
+
+            # Guardar en la base de datos utilizando el ORM de Django
+            try:
+                Demanda.objects.create(
+                    numjui=form.cleaned_data['numjui'],
+                    nombTribunal=form.cleaned_data['nombTribunal'],
+                    demandante=form.cleaned_data['demandante'],
+                    demandado=form.cleaned_data['demandado'],
+                    repre=form.cleaned_data['repre'],
+                    mandante=form.cleaned_data['mandante'],
+                    domicilio=form.cleaned_data['domicilio'],
+                    comuna=form.cleaned_data['comuna'],
+                    encargo=form.cleaned_data['encargo'],
+                    soli=form.cleaned_data['soli'],
+                    actu=form.cleaned_data['actu'],
+                    arancel=arancel_nombre,  # Guardar el nombre del arancel
+                    arancel_valor=int(arancel_valor),  # Guardar el valor del arancel como entero
+                )
+                messages.success(request, "Demanda creada exitosamente.")
+                return redirect('dashboard')
+            except Exception as e:
+                messages.error(request, f"Error al guardar la demanda: {str(e)}")
+                return redirect('crear_demanda')
 
     else:
         form = DemandaForm()
@@ -341,8 +342,8 @@ def crear_demanda(request):
         'actu_choices': actu_choices,
         'arancel_choices': arancel_choices,
         'form': form,
-        
     })
+
 
 
 

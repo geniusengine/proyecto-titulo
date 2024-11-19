@@ -6,7 +6,7 @@ class DemandaForm(forms.ModelForm):
         model = Demanda
         fields = '__all__'
         
-    ARANCELES_CHOICES = ([
+    ARANCELES_CHOICES = [
         ('velazqueztciaBCI_ALZAMIENTO_DE_EMBARGO_REALIZADO', '20000'),
         ('velazqueztciaBCI_BUSQUEDA_POSITIVA', '30000'),
         ('velazqueztciaBCI_BUSQUEDAS_NEGATIVAS', '12000'),
@@ -398,7 +398,7 @@ class DemandaForm(forms.ModelForm):
         ('ORPRO_NOT_CEDULA', '16000'),
         ('ORPRO_NOT_EMBARGO_BIEN_RAIZ', '20000'),
         ('ORPRO_NOT_REGISTRO_CIVIL', '20000')
-    ])
+    ]
     nombTribunal = forms.ChoiceField(choices=[
         ('1° Juzgado de Letras La Serena', '1° Juzgado de Letras La Serena'),
         ('2° Juzgado de Letras La Serena', '2° Juzgado de Letras La Serena'),
