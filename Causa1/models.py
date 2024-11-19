@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Notificacion(models.Model):
-    fechaNotificacion = models.DateTimeField()  # Correspondiente a `fechaNotificacion DATETIME`
+    fechaNotificacion = models.DateTimeField()
     numjui = models.CharField(max_length=255)
     nombTribunal = models.CharField(max_length=255)
     demandante = models.CharField(max_length=255)
@@ -14,14 +14,16 @@ class Notificacion(models.Model):
     comuna = models.CharField(max_length=255)
     encargo = models.CharField(max_length=255)
     soli = models.CharField(max_length=255)
-    arancel = models.IntegerField()  # Correspondiente a `arancel INT`
-    estadoNoti = models.IntegerField()  # Correspondiente a `estadoNoti INT`
-    estadoCausa = models.IntegerField()  # Correspondiente a `estadoCausa INT`
+    arancel = models.IntegerField()
+    arancel_nombre = models.CharField(max_length=255, null=True, blank=True)  # Nuevo campo
+    estadoNoti = models.IntegerField()
+    estadoCausa = models.IntegerField()
     actu = models.CharField(max_length=255)
 
     class Meta:
-        managed = False  # Esto indica que Django no gestionará la creación de la tabla
-        db_table = 'notificacion'  # Asegura que se apunte a la tabla correcta en la base de datos
+        managed = False
+        db_table = 'notificacion'
+
 
 
 
@@ -75,11 +77,13 @@ class Demanda(models.Model):
     encargo = models.CharField(max_length=255)
     soli = models.CharField(max_length=255)
     arancel = models.IntegerField()
+    arancel_nombre = models.CharField(max_length=255, null=True, blank=True)  # Nuevo campo
     actu = models.CharField(max_length=255)
 
     class Meta:
         managed = False
         db_table = 'demanda'
+
         unique_together = ('numjui', 'nombTribunal')
 
     def __str__(self):
@@ -97,6 +101,7 @@ class AUD_notificacion(models.Model):
     encargo = models.CharField(max_length=255)
     soli = models.CharField(max_length=255)
     arancel = models.IntegerField()
+    arancel_nombre = models.CharField(max_length=255, null=True, blank=True)  # Nuevo campo
     estadoNoti = models.IntegerField()
     estadoCausa = models.IntegerField()
     actu = models.CharField(max_length=255)
@@ -104,6 +109,7 @@ class AUD_notificacion(models.Model):
     class Meta:
         managed = False
         db_table = 'AUD_notificacion'
+
     
     def __str__(self):
         return f'{self.numjui} - {self.demandante} vs {self.demandado}'

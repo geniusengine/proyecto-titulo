@@ -7,7 +7,7 @@
         /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
+            background-color: #f7f9fc; /* Fondo pastel claro */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,7 +16,7 @@
         }
 
         h1 {
-            color: #333;
+            color: #2d4059; /* Azul suave */
             font-size: 2em;
             text-align: center;
             margin-bottom: 0.5em;
@@ -25,7 +25,7 @@
 
         /* Estilos del contenedor */
         .form-container {
-            background-color: #ffffff;
+            background-color: #eaf4fc; /* Azul pastel */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -43,23 +43,24 @@
 
         label {
             align-self: flex-start;
-            color: #555;
+            color: #3c3c3c; /* Texto oscuro para contraste */
             font-weight: bold;
             margin-top: 10px;
         }
 
-        input[type="text"], select, button[type="submit"] {
+        input[type="text"], select, button[type="submit"], input[list] {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
-            border: 1px solid #ddd;
+            border: 1px solid #c5d9f1; /* Borde azul pastel */
             border-radius: 4px;
             font-size: 0.9em;
+            background-color: #fefefe; /* Fondo blanco */
         }
 
         /* Botón de guardar */
         button[type="submit"] {
-            background-color: #007bff;
+            background-color: #77c9d4; /* Verde pastel */
             color: white;
             padding: 10px;
             font-size: 1em;
@@ -71,21 +72,26 @@
         }
 
         button[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #4da5ad; /* Verde más oscuro */
         }
 
         /* Enlace de volver */
         .back-link {
             display: block;
             margin-top: 12px;
-            color: #007bff;
+            color: #77c9d4; /* Verde pastel */
             text-decoration: none;
             font-weight: bold;
             font-size: 0.9em;
         }
 
         .back-link:hover {
-            color: #0056b3;
+            color: #4da5ad; /* Verde más oscuro */
+        }
+
+        /* Campo desplegable */
+        input[list] {
+            background-color: #fef9f5; /* Beige pastel */
         }
     </style>
 </head>
@@ -150,6 +156,8 @@
                 <option value="{{ arancel }}|{{ valor }}">{{ arancel }} - ${{ valor }}</option>
                 {% endfor %}
             </datalist>
+
+
 
 
             <button type="submit">Guardar Demanda</button>

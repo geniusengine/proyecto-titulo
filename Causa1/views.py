@@ -298,7 +298,12 @@ def crear_demanda(request):
         if form.is_valid():
             # Procesar el campo arancel (nombre y valor separados por '|')
             arancel_data = form.cleaned_data['arancel']
-            arancel_nombre, arancel_valor = arancel_data.split('|')  # Dividir en nombre y monto
+            try:
+                arancel_nombre, arancel_valor = arancel_data.split('|')  # Dividir en nombre y monto
+            except ValueError:
+                # Manejar caso de formato incorrecto
+                messages.error(request, "El formato del arancel es inválido.")
+                return redirect('crear_demanda')
             
             # Guardar en la tabla 'demanda'
             with connection.cursor() as cursor:
@@ -320,13 +325,11 @@ def crear_demanda(request):
                     arancel_nombre,      # Guardar el nombre del arancel
                     form.cleaned_data['actu']
                 ])
+            messages.success(request, "Demanda creada exitosamente.")
             return redirect('dashboard')
 
     else:
         form = DemandaForm()
-
-    # Recupera los mensajes para mostrarlos en la plantilla
-    almacen_mensajes = get_messages(request)
 
     # Extrae las opciones de los campos para pasarlas a la plantilla
     tribunal_choices = form.fields['nombTribunal'].choices
@@ -338,7 +341,7 @@ def crear_demanda(request):
         'actu_choices': actu_choices,
         'arancel_choices': arancel_choices,
         'form': form,
-        'messages': almacen_mensajes
+        
     })
 
 
