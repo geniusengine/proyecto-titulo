@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Notificacion(models.Model):
@@ -107,3 +108,14 @@ class AUD_notificacion(models.Model):
     def __str__(self):
         return f'{self.numjui} - {self.demandante} vs {self.demandado}'
     
+class Historial(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Relación con el usuario
+    accion = models.CharField(max_length=255)                    # Acción realizada
+    fecha_hora = models.DateTimeField(auto_now_add=True)         # Fecha y hora de la acción, se establece automáticamente
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.accion} - {self.fecha_hora}"
+
+    class Meta:
+        db_table = 'Historial'  # Nombre de la tabla en la base de datos
+        managed = False

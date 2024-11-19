@@ -1,33 +1,111 @@
-{% comment %}
- _______       _            _     _          ______        _                 _ 
-(_______)     (_)       _  (_)   | |        (____  \      (_)               | |
- _______  ____ _  ___ _| |_ _  __| |_____    ____)  ) ____ _ _____ ____   __| |
-|  ___  |/ ___) |/___|_   _) |/ _  | ___ |  |  __  ( / ___) (____ |  _ \ / _  |
-| |   | | |   | |___ | | |_| ( (_| | ____|  | |__)  ) |   | / ___ | | | ( (_| |
-|_|   |_|_|   |_(___/   \__)_|\____|_____)  |______/|_|   |_\_____|_| |_|\____|
-    
-Auteur: danie(danie.pro@gmail.com) 
-register.html(Ɔ) 2024
-Description : Saisissez la description puis « Tab »
-Créé le :  jeudi 7 novembre 2024 à 21:52:33 
-Dernière modification : jeudi 7 novembre 2024 à 21:52:36
-{% endcomment %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Registro de Usuario</title>
+    <style>
+        /* Estilos generales */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            color: #333;
+        }
+
+        /* Estilos del contenedor principal */
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Estilos para etiquetas y entradas */
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 15px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Botón de registro */
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #5a67d8;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4c51bf;
+        }
+
+        /* Botón de volver al menú */
+        .back-button {
+            margin-top: 15px;
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #5a67d8;
+            border: 2px solid #5a67d8;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #5a67d8;
+            color: #fff;
+        }
+
+        /* Mensaje de alerta */
+        .message {
+            color: #e53e3e;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Registro de Usuario</h1>
-    {% if messages %}
-        {% for message in messages %}
-            <div>{{ message }}</div>
-        {% endfor %}
-    {% endif %}
     <form method="post" action="{% url 'register' %}">
+        <h1>Registro de Usuario</h1>
         {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        
         <label for="name">Nombre:</label>
         <input type="text" name="name" required>
         
@@ -42,5 +120,8 @@ Dernière modification : jeudi 7 novembre 2024 à 21:52:36
         
         <button type="submit">Registrar</button>
     </form>
+
+    <!-- Botón para volver al menú principal -->
+    <a href="{% url 'main_menu' %}" class="back-button">Volver al Menú Principal</a>
 </body>
 </html>

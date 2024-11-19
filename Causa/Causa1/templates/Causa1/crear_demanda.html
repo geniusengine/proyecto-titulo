@@ -3,73 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Demanda</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        /* Estilos del contenedor */
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Estilos del formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            align-self: flex-start;
+            color: #555;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"], select, button[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* Botón de guardar */
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Enlace de volver */
+        .back-link {
+            display: block;
+            margin-top: 12px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Crear Demanda</h1>
+    <div class="form-container">
+        <h1>Crear Demanda</h1>
 
-    <form method="post" action="{% url 'crear_demanda' %}">
-        {% csrf_token %}
+        <form method="post" action="{% url 'crear_demanda' %}">
+            {% csrf_token %}
 
-        <!-- Campos de entrada de texto -->
-        <label for="numjui">Número de Juicio:</label>
-        <input type="text" id="numjui" name="numjui" required><br>
+            <!-- Campos de entrada de texto -->
+            <label for="numjui">Número de Juicio:</label>
+            <input type="text" id="numjui" name="numjui" required>
 
-        <label for="demandante">Demandante:</label>
-        <input type="text" id="demandante" name="demandante" required><br>
+            <label for="demandante">Demandante:</label>
+            <input type="text" id="demandante" name="demandante" required>
 
-        <label for="demandado">Demandado:</label>
-        <input type="text" id="demandado" name="demandado" required><br>
+            <label for="demandado">Demandado:</label>
+            <input type="text" id="demandado" name="demandado" required>
 
-        <label for="repre">Representante:</label>
-        <input type="text" id="repre" name="repre" required><br>
+            <label for="repre">Representante:</label>
+            <input type="text" id="repre" name="repre" required>
 
-        <label for="mandante">Mandante:</label>
-        <input type="text" id="mandante" name="mandante" required><br>
+            <label for="mandante">Mandante:</label>
+            <input type="text" id="mandante" name="mandante" required>
 
-        <label for="domicilio">Domicilio:</label>
-        <input type="text" id="domicilio" name="domicilio" required><br>
+            <label for="domicilio">Domicilio:</label>
+            <input type="text" id="domicilio" name="domicilio" required>
 
-        <label for="comuna">Comuna:</label>
-        <input type="text" id="comuna" name="comuna" required><br>
+            <label for="comuna">Comuna:</label>
+            <input type="text" id="comuna" name="comuna" required>
 
-        <label for="encargo">Encargo:</label>
-        <input type="text" id="encargo" name="encargo" required><br>
+            <label for="encargo">Encargo:</label>
+            <input type="text" id="encargo" name="encargo" required>
 
-        <label for="soli">Solicitud:</label>
-        <input type="text" id="soli" name="soli" required><br>
+            <label for="soli">Solicitud:</label>
+            <input type="text" id="soli" name="soli" required>
 
-        <!-- Campo desplegable para nombre del tribunal -->
-        <label for="nombTribunal">Nombre del Tribunal:</label>
-        <select id="nombTribunal" name="nombTribunal" required>
-            <option value="" disabled selected>Selecciona un tribunal</option>
-            {% for tribunal, nombre in tribunal_choices %}
-            <option value="{{ tribunal }}">{{ nombre }}</option>
-            {% endfor %}
-        </select><br>
+            <!-- Campo desplegable para nombre del tribunal -->
+            <label for="nombTribunal">Nombre del Tribunal:</label>
+            <select id="nombTribunal" name="nombTribunal" required>
+                <option value="" disabled selected>Selecciona un tribunal</option>
+                {% for tribunal, nombre in tribunal_choices %}
+                <option value="{{ tribunal }}">{{ nombre }}</option>
+                {% endfor %}
+            </select>
 
-        <!-- Campo desplegable para actuación -->
-        <label for="actu">Actuación:</label>
-        <select id="actu" name="actu" required>
-            <option value="" disabled selected>Selecciona una actuación</option>
-            {% for actu, nombre in actu_choices %}
-            <option value="{{ actu }}">{{ nombre }}</option>
-            {% endfor %}
-        </select><br>
+            <!-- Campo desplegable para actuación -->
+            <label for="actu">Actuación:</label>
+            <select id="actu" name="actu" required>
+                <option value="" disabled selected>Selecciona una actuación</option>
+                {% for actu, nombre in actu_choices %}
+                <option value="{{ actu }}">{{ nombre }}</option>
+                {% endfor %}
+            </select>
 
-        <!-- Campo de búsqueda para aranceles -->
-        <label for="arancel">Arancel:</label>
-        <input list="aranceles" id="arancel" name="arancel" required placeholder="Buscar y seleccionar arancel">
-        <datalist id="aranceles">
-            {% for arancel, valor in arancel_choices %}
-            <option value="{{ valor }}">{{ arancel }} - ${{ valor }}</option>
-            {% endfor %}
-        </datalist><br>
+            <!-- Campo de búsqueda para aranceles -->
+            <label for="arancel">Arancel:</label>
+            <input list="aranceles" id="arancel" name="arancel" required placeholder="Buscar y seleccionar arancel">
+            <datalist id="aranceles">
+                {% for arancel, valor in arancel_choices %}
+                <option value="{{ valor }}">{{ arancel }} - ${{ valor }}</option>
+                {% endfor %}
+            </datalist>
 
-        <button type="submit">Guardar Demanda</button>
-    </form>
+            <button type="submit">Guardar Demanda</button>
+        </form>
 
-    <a href="{% url 'dashboard' %}">Volver al Dashboard</a>
-
+        <a href="{% url 'dashboard' %}" class="back-link">Volver al Dashboard</a>
+    </div>
 </body>
 </html>
-

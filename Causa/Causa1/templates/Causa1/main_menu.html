@@ -1,34 +1,70 @@
-{% comment %}
- _______       _            _     _          ______        _                 _ 
-(_______)     (_)       _  (_)   | |        (____  \      (_)               | |
- _______  ____ _  ___ _| |_ _  __| |_____    ____)  ) ____ _ _____ ____   __| |
-|  ___  |/ ___) |/___|_   _) |/ _  | ___ |  |  __  ( / ___) (____ |  _ \ / _  |
-| |   | | |   | |___ | | |_| ( (_| | ____|  | |__)  ) |   | / ___ | | | ( (_| |
-|_|   |_|_|   |_(___/   \__)_|\____|_____)  |______/|_|   |_\_____|_| |_|\____|
-    
-Auteur: danie(danie.pro@gmail.com) 
-menu.html(Ɔ) 2024
-Description : Saisissez la description puis « Tab »
-Créé le :  jeudi 7 novembre 2024 à 21:42:13 
-Dernière modification : jeudi 7 novembre 2024 à 23:05:17
-{% endcomment %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Menú Principal</title>
-    
+    <style>
+        /* Estilos básicos para centrar el contenido */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* Contenedor del menú */
+        .menu-container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Título del menú */
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+        }
+
+        /* Botones de acción */
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Menú Principal</h1>
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Iniciar Sesión</button>
-    </form>
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Registro (Usuario y Contraseña Designados)</button>
-    </form>
+    <div class="menu-container">
+        <h1>Menú Principal</h1>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Registro (Usuario y Contraseña Designados)</button>
+        </form>
+    </div>
 </body>
 </html>

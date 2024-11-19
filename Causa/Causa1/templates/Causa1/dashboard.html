@@ -1,4 +1,3 @@
-<!-- templates/Causa1/dashboard.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,9 +5,152 @@
     <title>Dashboard</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script>
-       
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
 
+        /* Barra de navegación */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 15px;
+            color: white;
+        }
+
+        .navbar h1 {
+            font-size: 24px;
+            margin: 0;
+            font-family: 'Georgia', serif;
+            flex: 1;
+            text-align: left;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            justify-content: center;
+            flex: 2;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            background-color: #555;
+        }
+
+        /* Estilos para la información del usuario */
+        .user-info {
+            display: flex;
+            align-items: center;
+            color: white;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Barra de búsqueda */
+        .search-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Leyenda de colores del sistema de semáforo */
+        .color-legend {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .legend-green, .legend-yellow, .legend-red {
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+        
+        .legend-green { background-color: #4CAF50; }
+        .legend-yellow { background-color: #FFC107; }
+        .legend-red { background-color: #F44336; }
+
+        /* Estilos de la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #ffffff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #FFFFFF;
+        }
+
+        th {
+            background-color: #333;
+            color: white
+        }
+
+        .row-green { background-color: #28a745;
+        color: #FFFFFF; }
+        /* Para las filas amarillas */
+        .row-yellow {
+            background-color: #FFC107; /* amarillo intenso */
+            color: #000000; /* texto negro para un buen contraste */
+        }
+
+        /* Para las filas rojas */
+        .row-red {
+            background-color: #D32F2F; /* rojo oscuro fuerte */
+            color: #FFFFFF; /* texto blanco para contraste */
+        }
+
+        /* Botones dentro de la tabla */
+        button {
+            padding: 5px 10px;
+            border: none;
+            color: white;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover { background-color: #45a049; }
+
+        select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
         // Función para filtrar la tabla
         function buscarDemanda() {
             var input = document.getElementById("buscador");
@@ -35,28 +177,27 @@
     </script>
 </head>
 <body>
-    <h1>Dashboard de Notificaciones</h1>
-
-    <!-- Botones para las acciones adicionales -->
-    <div class="actions">
-        <a href="{% url 'crear_demanda' %}" class="btn">Crear Demanda</a>
-        <a href="{% url 'dashboard_historico' %}" class="btn">Dashboard Histórico</a>
-        <a href="{% url 'logout' %}" class="btn">Cerrar Sesión</a>
-    </div>
+    <header>
+        <!-- Barra de navegación -->
+        <div class="navbar">
+            <h1>Dashboard de Notificaciones</h1>
+            <div class="nav-links">
+                <a href="{% url 'crear_demanda' %}">Crear Demanda</a>
+                <a href="{% url 'dashboard_historico' %}">Dashboard Histórico</a>
+                <a href="{% url 'logout' %}">Cerrar Sesión</a>
+            </div>
+            <!-- Información del usuario en la esquina superior derecha -->
+            <div class="user-info">
+                <img src="{% static 'imagenperfil.jpg' %}" alt="Foto de perfil" class="profile-picture">
+                <span>{{ nombreusuario }} {{ apellidousuario }}</span>
+            </div>
+        </div>
+    </header>
 
     <!-- Barra de búsqueda -->
     <div class="search-bar">
         <input type="text" id="buscador" onkeyup="buscarDemanda()" placeholder="Buscar demanda...">
     </div>
-
-    <!-- Bloque de mensajes -->
-    {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-    {% endif %}
 
     <!-- Leyenda de colores del sistema de semáforo -->
     <div class="color-legend">
@@ -66,7 +207,7 @@
     </div>
 
     <!-- Tabla de datos con el sistema de semáforo -->
-    <table id="tablaDemandas" border="1">
+    <table id="tablaDemandas">
         <thead>
             <tr>
                 <th>Fecha Notificación</th>
@@ -81,7 +222,7 @@
                 <th>Encargo</th>
                 <th>Resultado</th>
                 <th>Arancel</th>
-                <th>Actuacion</th>
+                <th>Actuación</th>
                 <th>Estado Notificación</th>
                 <th>Estado Causa</th>
             </tr>
@@ -91,7 +232,7 @@
             <tr
                 {% if causa.estadoNoti and causa.estadoCausa %}
                     class="row-green"
-                {% elif causa.estadoNoti or causa.estadoCausa%}
+                {% elif causa.estadoNoti or causa.estadoCausa %}
                     class="row-yellow"
                 {% elif not causa.estadoNoti and not causa.estadoCausa %}
                     class="row-red"
@@ -110,13 +251,12 @@
                 <td>{{ causa.soli }}</td>
                 <td>{{ causa.arancel }}</td>
                 <td>{{ causa.actu }}</td>
-                               <!-- Botón para cambiar estado de notificación -->
+
+                <!-- Botón para cambiar estado de notificación -->
                 <td>
                     <form method="post" action="{% url 'notificar' causa.id %}">
                         {% csrf_token %}
-                        <button type="submit">
-                            {{ causa.estadoNoti|yesno:"Notificada,No Notificada" }}
-                        </button>
+                        <button type="submit">{{ causa.estadoNoti|yesno:"Notificada,No Notificada" }}</button>
                     </form>
                 </td>
 
@@ -130,16 +270,13 @@
                             <option value="positivaP">Búsqueda Positiva</option>
                             <option value="busquedaN">Búsqueda y Notificación</option>
                         </select>
-                        <button type="submit">
-                            {{ causa.estadoCausa|yesno:"Estampada,No Estampada" }}
-                        </button>
+                        <button type="submit">{{ causa.estadoCausa|yesno:"Estampada,No Estampada" }}</button>
                     </form>
                 </td>
-                
             </tr>
             {% empty %}
             <tr>
-                <td colspan="7">No hay notificaciones disponibles.</td>
+                <td colspan="15">No hay notificaciones disponibles.</td>
             </tr>
             {% endfor %}
         </tbody>

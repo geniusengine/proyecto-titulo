@@ -23,6 +23,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('register/', views.register_view, name='register'),
     path('Dashboard/', views.dashboard, name='dashboard'),
+    
     path('notificar/<int:causa_id>/', views.notificar, name='notificar'),
     path('crear_demanda/', views.crear_demanda, name='crear_demanda'),
     path('estampado/<int:estampado_id>/', views.estampado, name='estampado'),

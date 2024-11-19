@@ -21,10 +21,13 @@ from django.contrib.auth import logout
 from django.utils import timezone
 from datetime import timedelta
 from .models import AUD_notificacion
+from django.contrib.messages import get_messages
 
 def logout_view(request):
     logout(request)
     messages.success(request, "Sesión cerrada correctamente.")
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
     return redirect('main_menu')
 
 
@@ -33,16 +36,22 @@ def logout_view(request):
 # menuprincipal
 @csrf_protect
 def main_menu(request):
-    return render(request, 'Causa1/main_menu.html')
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
+    return render(request, 'Causa1/main_menu.html',{'messages': almacen_mensajes})
 
 @csrf_protect
 def login_view(request):
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
     if request.method == 'POST':
         # Lógica de inicio de sesión aquí (similar a `open_login`)
-        return render(request, 'Causa1/login.html')  # página de login
+        return render(request, 'Causa1/login.html',{'messages': almacen_mensajes})  # página de login
 
 @csrf_protect
 def register_view(request):
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
     if request.method == 'POST':
         # Usuario y contraseña designados
         usuario_designado = "admin"
@@ -54,7 +63,7 @@ def register_view(request):
         
         # Verifica las credenciales
         if usuario == usuario_designado and contrasena == contrasena_designada:
-            return render(request, 'Causa1/register.html')  # página de registro
+            return render(request, 'Causa1/register.html',{'messages': almacen_mensajes})  # página de registro
         else:
             messages.error(request, "Usuario y/o contraseña incorrectos.")
             return redirect('main_menu')
@@ -67,6 +76,8 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+        almacen_mensajes = get_messages(request)
 
         if username and password:
             try:
@@ -106,12 +117,14 @@ def login_view(request):
         else:
             messages.error(request, "Por favor, ingresa ambos campos.")
 
-    return render(request, 'Causa1/login.html')
+    return render(request, 'Causa1/login.html',{'messages': almacen_mensajes})
 
 
 # Registro
 
 def register_view(request):
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
     if request.method == 'POST':
         name = request.POST.get('name')
         apellido = request.POST.get('apellido')
@@ -121,7 +134,7 @@ def register_view(request):
         # Verificar campos vacíos
         if not name or not apellido or not username or not password:
             messages.error(request, "Por favor, complete todos los campos.")
-            return render(request, 'Causa1/register.html')
+            return render(request, 'Causa1/register.html',)
         
         # Hashear la contraseña usando bcrypt
         hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -140,10 +153,16 @@ def register_view(request):
             messages.error(request, "El nombre de usuario ya existe.")
             return render(request, 'Causa1/register.html')
 
-    return render(request, 'Causa1/register.html')
+    return render(request, 'Causa1/register.html',{'messages': almacen_mensajes})
 
 
 #Dashboar 
+from django.utils import timezone
+from datetime import timedelta
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Notificacion, Usuario
+
 def dashboard(request):
     # Verificar si el usuario ha iniciado sesión
     if 'user_id' not in request.session:
@@ -153,10 +172,20 @@ def dashboard(request):
     # Eliminar demandas en verde con más de 5 minutos
     tiempo_limite = timezone.now() - timedelta(minutes=5)
     Notificacion.objects.filter(estadoNoti=True, estadoCausa=True, fechaNotificacion__lt=tiempo_limite).delete()
-    
+
+    # Obtener el usuario actual
+    user_id = request.session['user_id']
+    usuario = Usuario.objects.get(id=user_id)
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
     # Cargar los datos de Notificacion si el usuario está autenticado
     causas = Notificacion.objects.all()
-    return render(request, 'Causa1/dashboard.html', {'causas': causas})
+    return render(request, 'Causa1/dashboard.html', {
+        'causas': causas,
+        'nombreusuario': usuario.nombreusuario,
+        'apellidousuario': usuario.apellidousuario,
+        'messages': almacen_mensajes
+    })
 
 def notificar(request, causa_id):
     causa = get_object_or_404(Notificacion, id=causa_id)
@@ -179,6 +208,7 @@ def estampar(request, causa_id):
         if causa.estadoNoti == 1:
             if causa.estadoCausa == 0:
                 causa.estadoCausa = 1
+                causa.fechaNotificacion = timezone.now()  # Actualiza la fecha de notificación a la fecha actual
                 causa.save()
                 messages.success(request, "Causa estampada correctamente.")
                 
@@ -191,6 +221,12 @@ def estampar(request, causa_id):
     
     return redirect('dashboard')
 
+
+from datetime import datetime
+from docx import Document
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+
 def descargar_documento(request, estampado_id, tipo_estampado):
     notificacion = get_object_or_404(Notificacion, id=estampado_id)
     doc = Document()
@@ -201,18 +237,43 @@ def descargar_documento(request, estampado_id, tipo_estampado):
     hora_actual = now.strftime("%H:%M")
 
     # Encabezado común
-    encabezado = f"{notificacion.nombTribunal}\nCAUSA ROL= {notificacion.numjui}\nCARÁTULA {notificacion.demandante} / {notificacion.demandado}"
+    encabezado = (
+        "Alejandra Muñoz Orellana\n"
+        "Receptora Judicial – La Serena\n"
+        "receptoralejandramunoz@gmail.com\n"
+        "Av. Del Mar, N° 5.700, of. N° 47  La Serena.\n"
+        "+56 952178958\n\n"
+        f"{notificacion.nombTribunal}\n"
+        f"ROL-RIT: {notificacion.numjui}\n"
+        f"{notificacion.demandante} CON {notificacion.demandado}\n"
+    )
     doc.add_paragraph(encabezado)
 
     # Contenido específico según el tipo de estampado
     if tipo_estampado == "negativa52":
-        contenido = f"BÚSQUEDA NEGATIVA: Certifico haber buscado al(la) demandado(a) {notificacion.demandado}, con domicilio en {notificacion.domicilio} {notificacion.comuna} especialmente el día {fecha_actual}, siendo las {hora_actual} horas..."
+        contenido = (
+            f"BÚSQUEDA NEGATIVA: Certifico haber buscado al(la) demandado(a) "
+            f"{notificacion.demandado}, con domicilio en {notificacion.domicilio}, {notificacion.comuna}, "
+            f"especialmente el día {fecha_actual}, siendo las {hora_actual} horas, a fin de notificarle la resolución "
+            f"de fecha {notificacion.fecha_resolucion}. Diligencia que no se llevó a efecto por cuanto el(la) demandado(a) "
+            f"no fue habido(a). DOY FE."
+        )
     elif tipo_estampado == "positivaP":
-        contenido = f"BÚSQUEDA POSITIVA: En {fecha_actual}, siendo las {hora_actual}, en {notificacion.domicilio}..."
+        contenido = (
+            f"BÚSQUEDA POSITIVA: a {fecha_actual}, siendo las {hora_actual} horas, en su domicilio ubicado en "
+            f"{notificacion.domicilio}, {notificacion.comuna}, busqué a {notificacion.demandado}, "
+            f"a fin de notificarle la demanda íntegra y su respectivo proveído. Diligencia que no se llevó a efecto "
+            f"por no ser habido en dicho domicilio, en ese momento. DOY FE."
+        )
     elif tipo_estampado == "busquedaN":
-        contenido = f"BÚSQUEDA Y NOTIFICACIÓN: a {fecha_actual}, en {notificacion.domicilio}..."
+        contenido = (
+            f"BÚSQUEDA Y NOTIFICACIÓN: a {fecha_actual}, siendo las {hora_actual} horas, en su domicilio ubicado en "
+            f"{notificacion.domicilio}, {notificacion.comuna}, busqué a {notificacion.demandado}, "
+            f"a fin de notificarle la resolución de fecha {notificacion.fecha_resolucion}, junto al escrito que antecede. "
+            f"Diligencia que no se llevó a efecto por no ser habido en dicho domicilio, en ese momento. DOY FE."
+        )
 
-    # Firma y cierre
+    # Agregar contenido y firma
     doc.add_paragraph(contenido)
     doc.add_paragraph(f"Drs. {notificacion.arancel}.-")
 
@@ -221,6 +282,7 @@ def descargar_documento(request, estampado_id, tipo_estampado):
     response['Content-Disposition'] = f'attachment; filename="{notificacion.numjui}_{tipo_estampado}.docx"'
     doc.save(response)
     return response
+
 
 def estampado(request, estampado_id):
     # Obtén la notificación específica basada en el ID
@@ -261,7 +323,8 @@ def crear_demanda(request):
 
     else:
         form = DemandaForm()
-
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
     # Extrae las opciones de los campos 'nombTribunal' y 'actu' para el template
     tribunal_choices = form.fields['nombTribunal'].choices
     actu_choices = form.fields['actu'].choices
@@ -271,7 +334,8 @@ def crear_demanda(request):
         'tribunal_choices': tribunal_choices,
         'actu_choices': actu_choices,
         'arancel_choices': arancel_choices,
-        'form': form
+        'form': form,
+        'messages': almacen_mensajes
     })
 
 
@@ -281,5 +345,8 @@ def crear_demanda(request):
 
 def dashboard_historico(request):
     # Obtén todos los registros de la tabla AUD_notificacion
+    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+    almacen_mensajes = get_messages(request)
     historico = AUD_notificacion.objects.all()
-    return render(request, 'Causa1/dashboard_historico.html', {'historico': historico})
+    return render(request, 'Causa1/dashboard_historico.html', {'historico': historico,
+                                                               'messages': almacen_mensajes})
