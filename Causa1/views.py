@@ -288,61 +288,64 @@ def estampado(request, estampado_id):
 #crear demanda
 
 
-from django.shortcuts import render, redirect
+from django.db import connection
 from django.contrib import messages
-from .forms import DemandaForm
-from .models import Demanda
 
 def crear_demanda(request):
     if request.method == "POST":
         form = DemandaForm(request.POST)
         if form.is_valid():
-            # Procesar el campo arancel (nombre y valor separados por '|')
-            arancel_data = form.cleaned_data['arancel']
-            try:
-                arancel_nombre, arancel_valor = arancel_data.split('|')  # Dividir en nombre y monto
-            except ValueError:
-                # Manejar caso de formato incorrecto
-                messages.error(request, "El formato del arancel es inválido. Selecciona una opción válida del listado.")
+            # Obtén el nombre del arancel desde el formulario
+            arancel_nombre = form.cleaned_data['arancel']
+
+            # Busca el valor correspondiente al nombre en ARANCELES_CHOICES
+            arancel_valor = dict(form.ARANCELES_CHOICES).get(arancel_nombre, None)
+
+            if arancel_valor is None:
+                # Si no se encuentra el arancel, muestra un error
+                messages.error(request, "El arancel seleccionado no es válido.")
                 return redirect('crear_demanda')
 
-            # Guardar en la base de datos utilizando el ORM de Django
-            try:
-                Demanda.objects.create(
-                    numjui=form.cleaned_data['numjui'],
-                    nombTribunal=form.cleaned_data['nombTribunal'],
-                    demandante=form.cleaned_data['demandante'],
-                    demandado=form.cleaned_data['demandado'],
-                    repre=form.cleaned_data['repre'],
-                    mandante=form.cleaned_data['mandante'],
-                    domicilio=form.cleaned_data['domicilio'],
-                    comuna=form.cleaned_data['comuna'],
-                    encargo=form.cleaned_data['encargo'],
-                    soli=form.cleaned_data['soli'],
-                    actu=form.cleaned_data['actu'],
-                    arancel=arancel_nombre,  # Guardar el nombre del arancel
-                    arancel_valor=int(arancel_valor),  # Guardar el valor del arancel como entero
-                )
-                messages.success(request, "Demanda creada exitosamente.")
-                return redirect('dashboard')
-            except Exception as e:
-                messages.error(request, f"Error al guardar la demanda: {str(e)}")
-                return redirect('crear_demanda')
+            # Guarda los datos en la tabla usando el cursor
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    INSERT INTO demanda (numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """, [
+                    form.cleaned_data['numjui'],                   # Número de juicio
+                    form.cleaned_data['nombTribunal'],            # Nombre del tribunal
+                    form.cleaned_data['demandante'],              # Demandante
+                    form.cleaned_data['demandado'],               # Demandado
+                    form.cleaned_data['repre'],                   # Representante
+                    form.cleaned_data['mandante'],                # Mandante
+                    form.cleaned_data['domicilio'],               # Domicilio
+                    form.cleaned_data['comuna'],                  # Comuna
+                    form.cleaned_data['encargo'],                 # Encargo
+                    form.cleaned_data['soli'],                    # Solicitud
+                    int(arancel_valor),                           # Valor del arancel (convertido a entero)
+                    arancel_nombre,                               # Nombre del arancel
+                    form.cleaned_data['actu'],                    # Actuación
+                ])
+
+            messages.success(request, "Demanda creada exitosamente.")
+            return redirect('dashboard')
 
     else:
         form = DemandaForm()
 
-    # Extrae las opciones de los campos para pasarlas a la plantilla
+    # Pasar opciones adicionales a la plantilla
     tribunal_choices = form.fields['nombTribunal'].choices
     actu_choices = form.fields['actu'].choices
     arancel_choices = form.ARANCELES_CHOICES
 
     return render(request, 'Causa1/crear_demanda.html', {
+        'form': form,
         'tribunal_choices': tribunal_choices,
         'actu_choices': actu_choices,
         'arancel_choices': arancel_choices,
-        'form': form,
     })
+
+
 
 
 

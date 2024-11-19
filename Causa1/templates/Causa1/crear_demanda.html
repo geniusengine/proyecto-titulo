@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Demanda</title>
-    <script>
-        document.getElementById('arancel').addEventListener('input', function(event) {
-            console.log("Valor ingresado:", event.target.value);
-        });
-        </script>
+    
     <style>
         /* Estilos generales */
         body {
@@ -155,12 +151,13 @@
 
             <!-- Campo de búsqueda para aranceles -->
             <label for="arancel">Arancel:</label>
-            <input list="aranceles" id="arancel" name="arancel" required placeholder="Buscar y seleccionar arancel">
-            <datalist id="aranceles">
+            <select id="arancel" name="arancel" required>
+                <option value="" disabled selected>Buscar y seleccionar arancel</option>
                 {% for arancel, valor in arancel_choices %}
                 <option value="{{ arancel }}|{{ valor }}">{{ arancel }} - ${{ valor }}</option>
                 {% endfor %}
-            </datalist>
+            </select>
+
 
 
 
