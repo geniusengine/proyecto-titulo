@@ -222,12 +222,12 @@ def estampar(request, causa_id):
     return redirect('dashboard')
 
 
-from datetime import datetime
-from docx import Document
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+
+
+
 
 def descargar_documento(request, estampado_id, tipo_estampado):
+    # Obtener la notificación específica
     notificacion = get_object_or_404(Notificacion, id=estampado_id)
     doc = Document()
     
@@ -275,7 +275,7 @@ def descargar_documento(request, estampado_id, tipo_estampado):
 
     # Agregar contenido y firma
     doc.add_paragraph(contenido)
-    doc.add_paragraph(f"Drs. {notificacion.arancel}.-")
+    doc.add_paragraph(f"Drs. {notificacion.arancel_nombre} - ${notificacion.arancel}.-")
 
     # Preparar el archivo para la descarga
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
@@ -288,14 +288,6 @@ def estampado(request, estampado_id):
     # Obtén la notificación específica basada en el ID
     notificacion = get_object_or_404(Notificacion, id=estampado_id)
     return render(request, 'Causa1/estampado.html', {'notificacion': notificacion})
-
-
-#insertar datos
-
-from django.shortcuts import render, redirect
-from django.db import connection  # Para conexión directa con la base de datos
-from .forms import DemandaForm
-
 
 #crear demanda
 

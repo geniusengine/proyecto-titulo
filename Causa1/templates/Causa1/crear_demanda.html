@@ -147,9 +147,10 @@
             <input list="aranceles" id="arancel" name="arancel" required placeholder="Buscar y seleccionar arancel">
             <datalist id="aranceles">
                 {% for arancel, valor in arancel_choices %}
-                <option value="{{ valor }}">{{ arancel }} - ${{ valor }}</option>
+                <option value="{{ arancel }}|{{ valor }}">{{ arancel }} - ${{ valor }}</option>
                 {% endfor %}
             </datalist>
+
 
             <button type="submit">Guardar Demanda</button>
         </form>
