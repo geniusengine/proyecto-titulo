@@ -296,15 +296,23 @@ from django.shortcuts import render, redirect
 from django.db import connection  # Para conexión directa con la base de datos
 from .forms import DemandaForm
 
+
+#crear demanda
+
+
 def crear_demanda(request):
     if request.method == "POST":
         form = DemandaForm(request.POST)
         if form.is_valid():
+            # Procesar el campo arancel (nombre y valor separados por '|')
+            arancel_data = form.cleaned_data['arancel']
+            arancel_nombre, arancel_valor = arancel_data.split('|')  # Dividir en nombre y monto
+            
             # Guardar en la tabla 'demanda'
             with connection.cursor() as cursor:
                 cursor.execute("""
-                    INSERT INTO demanda (numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, actu)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO demanda (numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """, [
                     form.cleaned_data['numjui'],
                     form.cleaned_data['nombTribunal'],
@@ -316,16 +324,19 @@ def crear_demanda(request):
                     form.cleaned_data['comuna'],
                     form.cleaned_data['encargo'],
                     form.cleaned_data['soli'],
-                    form.cleaned_data['arancel'],
+                    int(arancel_valor),  # Guardar el valor del arancel como número
+                    arancel_nombre,      # Guardar el nombre del arancel
                     form.cleaned_data['actu']
                 ])
             return redirect('dashboard')
 
     else:
         form = DemandaForm()
-    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
+
+    # Recupera los mensajes para mostrarlos en la plantilla
     almacen_mensajes = get_messages(request)
-    # Extrae las opciones de los campos 'nombTribunal' y 'actu' para el template
+
+    # Extrae las opciones de los campos para pasarlas a la plantilla
     tribunal_choices = form.fields['nombTribunal'].choices
     actu_choices = form.fields['actu'].choices
     arancel_choices = form.ARANCELES_CHOICES
