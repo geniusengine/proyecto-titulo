@@ -1,0 +1,44 @@
+/* static/css/styles.css */
+
+.color-legend {
+    margin-bottom: 15px;
+}
+
+.legend-green {
+    background-color: #2ecc71; /* Verde */
+    padding: 5px;
+    color: white;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.legend-yellow {
+    background-color: #f1c40f; /* Amarillo */
+    padding: 5px;
+    color: black;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.legend-red {
+    background-color: #e74c3c; /* Rojo */
+    padding: 5px;
+    color: white;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.row-green {
+    background-color: #2ecc71; /* Verde */
+    color: white;
+}
+
+.row-yellow {
+    background-color: #f1c40f; /* Amarillo */
+    color: black;
+}
+
+.row-red {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+}
