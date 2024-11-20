@@ -23,7 +23,8 @@ class Notificacion(models.Model):
     class Meta:
         managed = False
         db_table = 'notificacion'
-
+        
+   
 
 
 
@@ -108,7 +109,7 @@ class AUD_notificacion(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'AUD_notificacion'
+        db_table = 'aud_notificacion'
 
     
     def __str__(self):

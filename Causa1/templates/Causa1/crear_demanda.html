@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Demanda</title>
-    
     <style>
-        /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f9fc; /* Fondo pastel claro */
+            background-color: #f7f9fc;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
         }
-
         h1 {
-            color: #2d4059; /* Azul suave */
+            color: #2d4059;
             font-size: 2em;
             text-align: center;
             margin-bottom: 0.5em;
             font-weight: bold;
         }
-
-        /* Estilos del contenedor */
         .form-container {
-            background-color: #eaf4fc; /* Azul pastel */
+            background-color: #eaf4fc;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -34,34 +29,28 @@
             width: 100%;
             text-align: center;
         }
-
-        /* Estilos del formulario */
         form {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
         label {
             align-self: flex-start;
-            color: #3c3c3c; /* Texto oscuro para contraste */
+            color: #3c3c3c;
             font-weight: bold;
             margin-top: 10px;
         }
-
         input[type="text"], select, button[type="submit"], input[list] {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
-            border: 1px solid #c5d9f1; /* Borde azul pastel */
+            border: 1px solid #c5d9f1;
             border-radius: 4px;
             font-size: 0.9em;
-            background-color: #fefefe; /* Fondo blanco */
+            background-color: #fefefe;
         }
-
-        /* Botón de guardar */
         button[type="submit"] {
-            background-color: #77c9d4; /* Verde pastel */
+            background-color: #77c9d4;
             color: white;
             padding: 10px;
             font-size: 1em;
@@ -71,101 +60,92 @@
             cursor: pointer;
             margin-top: 15px;
         }
-
         button[type="submit"]:hover {
-            background-color: #4da5ad; /* Verde más oscuro */
+            background-color: #4da5ad;
         }
-
-        /* Enlace de volver */
         .back-link {
             display: block;
             margin-top: 12px;
-            color: #77c9d4; /* Verde pastel */
+            color: #77c9d4;
             text-decoration: none;
             font-weight: bold;
             font-size: 0.9em;
         }
-
         .back-link:hover {
-            color: #4da5ad; /* Verde más oscuro */
-        }
-
-        /* Campo desplegable */
-        input[list] {
-            background-color: #fef9f5; /* Beige pastel */
+            color: #4da5ad;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h1>Crear Demanda</h1>
-
         <form method="post" action="{% url 'crear_demanda' %}">
             {% csrf_token %}
-
-            <!-- Campos de entrada de texto -->
             <label for="numjui">Número de Juicio:</label>
-            <input type="text" id="numjui" name="numjui" required>
+            <input type="text" id="numjui" name="numjui" value="{{ form.numjui.value|default:'' }}" required>
 
             <label for="demandante">Demandante:</label>
-            <input type="text" id="demandante" name="demandante" required>
+            <input type="text" id="demandante" name="demandante" value="{{ form.demandante.value|default:'' }}" required>
 
             <label for="demandado">Demandado:</label>
-            <input type="text" id="demandado" name="demandado" required>
+            <input type="text" id="demandado" name="demandado" value="{{ form.demandado.value|default:'' }}" required>
 
             <label for="repre">Representante:</label>
-            <input type="text" id="repre" name="repre" required>
+            <input type="text" id="repre" name="repre" value="{{ form.repre.value|default:'' }}" required>
 
             <label for="mandante">Mandante:</label>
-            <input type="text" id="mandante" name="mandante" required>
+            <input type="text" id="mandante" name="mandante" value="{{ form.mandante.value|default:'' }}" required>
 
             <label for="domicilio">Domicilio:</label>
-            <input type="text" id="domicilio" name="domicilio" required>
+            <input type="text" id="domicilio" name="domicilio" value="{{ form.domicilio.value|default:'' }}" required>
 
             <label for="comuna">Comuna:</label>
-            <input type="text" id="comuna" name="comuna" required>
+            <input type="text" id="comuna" name="comuna" value="{{ form.comuna.value|default:'' }}" required>
 
             <label for="encargo">Encargo:</label>
-            <input type="text" id="encargo" name="encargo" required>
+            <input type="text" id="encargo" name="encargo" value="{{ form.encargo.value|default:'' }}" required>
 
             <label for="soli">Solicitud:</label>
-            <input type="text" id="soli" name="soli" required>
+            <input type="text" id="soli" name="soli" value="{{ form.soli.value|default:'' }}" required>
 
-            <!-- Campo desplegable para nombre del tribunal -->
             <label for="nombTribunal">Nombre del Tribunal:</label>
             <select id="nombTribunal" name="nombTribunal" required>
                 <option value="" disabled selected>Selecciona un tribunal</option>
                 {% for tribunal, nombre in tribunal_choices %}
-                <option value="{{ tribunal }}">{{ nombre }}</option>
+                <option value="{{ tribunal }}" {% if form.nombTribunal.value == tribunal %}selected{% endif %}>{{ nombre }}</option>
                 {% endfor %}
             </select>
 
-            <!-- Campo desplegable para actuación -->
             <label for="actu">Actuación:</label>
             <select id="actu" name="actu" required>
                 <option value="" disabled selected>Selecciona una actuación</option>
                 {% for actu, nombre in actu_choices %}
-                <option value="{{ actu }}">{{ nombre }}</option>
+                <option value="{{ actu }}" {% if form.actu.value == actu %}selected{% endif %}>{{ nombre }}</option>
                 {% endfor %}
             </select>
 
-            <!-- Campo de búsqueda para aranceles -->
             <label for="arancel">Arancel:</label>
-            <select id="arancel" name="arancel" required>
+            <select id="arancel" name="arancel_nombre" required onchange="updateArancelValue()">
                 <option value="" disabled selected>Buscar y seleccionar arancel</option>
                 {% for arancel, valor in arancel_choices %}
-                <option value="{{ arancel }}|{{ valor }}">{{ arancel }} - ${{ valor }}</option>
+                <option value="{{ arancel }}" data-valor="{{ valor }}">{{ arancel }} - ${{ valor }}</option>
                 {% endfor %}
             </select>
 
-
-
-
+            <input type="hidden" id="arancel_valor" name="arancel" readonly>
 
             <button type="submit">Guardar Demanda</button>
         </form>
-
         <a href="{% url 'dashboard' %}" class="back-link">Volver al Dashboard</a>
     </div>
+    <script>
+        function updateArancelValue() {
+            var arancelSelect = document.getElementById('arancel');
+            var arancelValorInput = document.getElementById('arancel_valor');
+            var selectedOption = arancelSelect.options[arancelSelect.selectedIndex];
+            var arancelValor = selectedOption.getAttribute('data-valor');
+            arancelValorInput.value = arancelValor;
+        }
+    </script>
 </body>
 </html>

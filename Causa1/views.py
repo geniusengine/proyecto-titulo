@@ -280,56 +280,66 @@ def descargar_documento(request, estampado_id, tipo_estampado):
     return response
 
 
-def estampado(request, estampado_id):
-    # Obtén la notificación específica basada en el ID
-    notificacion = get_object_or_404(Notificacion, id=estampado_id)
-    return render(request, 'Causa1/estampado.html', {'notificacion': notificacion})
-
-#crear demanda
-
-
-from django.db import connection
-from django.contrib import messages
-
 def crear_demanda(request):
     if request.method == "POST":
         form = DemandaForm(request.POST)
         if form.is_valid():
-            # Obtén el nombre del arancel desde el formulario
-            arancel_nombre = form.cleaned_data['arancel']
+            # Obtén los valores del formulario directamente
+            arancel_nombre = request.POST.get('arancel_nombre')
+            arancel_valor = request.POST.get('arancel')
 
-            # Busca el valor correspondiente al nombre en ARANCELES_CHOICES
-            arancel_valor = dict(form.ARANCELES_CHOICES).get(arancel_nombre, None)
-
-            if arancel_valor is None:
-                # Si no se encuentra el arancel, muestra un error
-                messages.error(request, "El arancel seleccionado no es válido.")
+            # Verifica si los valores son válidos
+            try:
+                arancel_valor = int(arancel_valor)  # Convertir el valor a entero
+            except ValueError:
+                messages.error(request, "El valor del arancel es inválido.")
                 return redirect('crear_demanda')
 
-            # Guarda los datos en la tabla usando el cursor
-            with connection.cursor() as cursor:
-                cursor.execute("""
-                    INSERT INTO demanda (numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """, [
-                    form.cleaned_data['numjui'],                   # Número de juicio
-                    form.cleaned_data['nombTribunal'],            # Nombre del tribunal
-                    form.cleaned_data['demandante'],              # Demandante
-                    form.cleaned_data['demandado'],               # Demandado
-                    form.cleaned_data['repre'],                   # Representante
-                    form.cleaned_data['mandante'],                # Mandante
-                    form.cleaned_data['domicilio'],               # Domicilio
-                    form.cleaned_data['comuna'],                  # Comuna
-                    form.cleaned_data['encargo'],                 # Encargo
-                    form.cleaned_data['soli'],                    # Solicitud
-                    int(arancel_valor),                           # Valor del arancel (convertido a entero)
-                    arancel_nombre,                               # Nombre del arancel
-                    form.cleaned_data['actu'],                    # Actuación
-                ])
+            # Datos a insertar
+            datos_a_insertar = {
+                "numjui": form.cleaned_data['numjui'],
+                "nombTribunal": form.cleaned_data['nombTribunal'],
+                "demandante": form.cleaned_data['demandante'],
+                "demandado": form.cleaned_data['demandado'],
+                "repre": form.cleaned_data['repre'],
+                "mandante": form.cleaned_data['mandante'],
+                "domicilio": form.cleaned_data['domicilio'],
+                "comuna": form.cleaned_data['comuna'],
+                "encargo": form.cleaned_data['encargo'],
+                "soli": form.cleaned_data['soli'],
+                "arancel": arancel_valor,
+                "arancel_nombre": arancel_nombre,
+                "actu": form.cleaned_data['actu']
+            }
 
-            messages.success(request, "Demanda creada exitosamente.")
-            return redirect('dashboard')
+            # Imprime los datos en la consola para depuración
+            print("Datos a insertar en la base de datos:", datos_a_insertar)
 
+            try:
+                with connection.cursor() as cursor:
+                    cursor.execute("""
+                        INSERT INTO demanda (numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    """, [
+                        datos_a_insertar['numjui'],
+                        datos_a_insertar['nombTribunal'],
+                        datos_a_insertar['demandante'],
+                        datos_a_insertar['demandado'],
+                        datos_a_insertar['repre'],
+                        datos_a_insertar['mandante'],
+                        datos_a_insertar['domicilio'],
+                        datos_a_insertar['comuna'],
+                        datos_a_insertar['encargo'],
+                        datos_a_insertar['soli'],
+                        datos_a_insertar['arancel'],
+                        datos_a_insertar['arancel_nombre'],
+                        datos_a_insertar['actu']
+                    ])
+                messages.success(request, "Demanda creada exitosamente.")
+                return redirect('lista_demandas')
+            except Exception as e:
+                messages.error(request, f"Error al crear la demanda: {e}")
+                return redirect('crear_demanda')
     else:
         form = DemandaForm()
 
@@ -344,8 +354,6 @@ def crear_demanda(request):
         'actu_choices': actu_choices,
         'arancel_choices': arancel_choices,
     })
-
-
 
 
 
