@@ -122,7 +122,7 @@ class Notificacion(models.Model):
     encargo = models.CharField(max_length=255)
     soli = models.CharField(max_length=255)
     arancel = models.IntegerField()
-    arancel_nombre = models.CharField(max_length=255)  # Nuevo campo
+    arancel_nombre = models.CharField(max_length=255, null=True, blank=True)  # Nuevo campo
     estadoNoti = models.IntegerField()
     estadoCausa = models.IntegerField()
     actu = models.CharField(max_length=255)
