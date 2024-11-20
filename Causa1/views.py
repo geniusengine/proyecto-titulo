@@ -182,7 +182,11 @@ def dashboard(request):
     almacen_mensajes = messages.get_messages(request)
     
     # Cargar los datos de Notificacion si el usuario está autenticado
-    causas = Notificacion.objects.all()
+    causas = Notificacion.objects.all().values(
+        'fecha_notificacion', 'numjui', 'nombTribunal', 'demandante', 'demandado',
+        'repre', 'mandante', 'domicilio', 'comuna', 'encargo', 'resultado',
+        'arancel', 'arancel_nombre', 'actu', 'estado_notificacion', 'estado_causa'
+    )
     
     return render(request, 'Causa1/dashboard.html', {
         'causas': causas,
