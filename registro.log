@@ -420,6 +420,7 @@ Traceback (most recent call last):
   File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\MySQLdb\connections.py", line 254, in query
     _mysql.connection.query(self, query)
 django.db.utils.OperationalError: (1054, "Unknown column 'arancel_nombre' in 'field list'")
+<<<<<<< HEAD
 2024-11-20 00:42:54,779 - ERROR - Internal Server Error: /Dashboard/
 Traceback (most recent call last):
   File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\db\models\sql\query.py", line 2195, in add_fields
@@ -521,3 +522,5 @@ Traceback (most recent call last):
 django.urls.exceptions.NoReverseMatch: Reverse for 'notificar' with arguments '('',)' not found. 1 pattern(s) tried: ['notificar/(?P<causa_id>[0-9]+)/\\Z']
 2024-11-20 00:54:22,753 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py changed, reloading.
 2024-11-20 01:55:48,781 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py changed, reloading.
+=======
+>>>>>>> parent of 6a6e216 (funcionando a medias)

@@ -167,19 +167,26 @@ def dashboard(request):
         messages.error(request, "Debes iniciar sesión primero.")
         return redirect('login')
     
+    # Validar y actualizar el esquema de la base de datos
+    verificar_y_actualizar_esquema()
+    
     # Eliminar demandas en verde con más de 5 minutos
     
 
     # Obtener el usuario actual
     user_id = request.session['user_id']
     usuario = Usuario.objects.get(id=user_id)
-
+    
     # Recupera los mensajes y asegura que desaparezcan después de mostrarse
-    almacen_mensajes = get_messages(request)
-
+    almacen_mensajes = messages.get_messages(request)
+    
     # Cargar los datos de Notificacion si el usuario está autenticado
-    causas = Notificacion.objects.all()
-
+    causas = Notificacion.objects.all().values(
+        'fecha_notificacion', 'numjui', 'nombTribunal', 'demandante', 'demandado',
+        'repre', 'mandante', 'domicilio', 'comuna', 'encargo', 'resultado',
+        'arancel', 'arancel_nombre', 'actu', 'estado_notificacion', 'estado_causa'
+    )
+    
     return render(request, 'Causa1/dashboard.html', {
         'causas': causas,
         'nombreusuario': usuario.nombreusuario,
