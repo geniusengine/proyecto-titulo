@@ -520,3 +520,4 @@ Traceback (most recent call last):
     raise NoReverseMatch(msg)
 django.urls.exceptions.NoReverseMatch: Reverse for 'notificar' with arguments '('',)' not found. 1 pattern(s) tried: ['notificar/(?P<causa_id>[0-9]+)/\\Z']
 2024-11-20 00:54:22,753 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py changed, reloading.
+2024-11-20 01:55:48,781 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py changed, reloading.

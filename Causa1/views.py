@@ -168,8 +168,7 @@ def dashboard(request):
         return redirect('login')
     
     # Eliminar demandas en verde con más de 5 minutos
-    tiempo_limite = timezone.now() - timedelta(minutes=5)
-    Notificacion.objects.filter(estadoNoti=True, estadoCausa=True, fechaNotificacion__lt=tiempo_limite).delete()
+    
 
     # Obtener el usuario actual
     user_id = request.session['user_id']
