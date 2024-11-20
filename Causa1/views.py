@@ -159,11 +159,16 @@ def register_view(request):
 #Dashboar 
 
 
+from .utils import verificar_y_actualizar_esquema
+
 def dashboard(request):
     # Verificar si el usuario ha iniciado sesión
     if 'user_id' not in request.session:
         messages.error(request, "Debes iniciar sesión primero.")
         return redirect('login')
+    
+    # Validar y actualizar el esquema de la base de datos
+    verificar_y_actualizar_esquema()
     
     # Eliminar demandas en verde con más de 5 minutos
     tiempo_limite = timezone.now() - timedelta(minutes=5)
@@ -172,10 +177,13 @@ def dashboard(request):
     # Obtener el usuario actual
     user_id = request.session['user_id']
     usuario = Usuario.objects.get(id=user_id)
+    
     # Recupera los mensajes y asegura que desaparezcan después de mostrarse
-    almacen_mensajes = get_messages(request)
+    almacen_mensajes = messages.get_messages(request)
+    
     # Cargar los datos de Notificacion si el usuario está autenticado
     causas = Notificacion.objects.all()
+    
     return render(request, 'Causa1/dashboard.html', {
         'causas': causas,
         'nombreusuario': usuario.nombreusuario,

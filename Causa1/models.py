@@ -1,28 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-class Notificacion(models.Model):
-    fechaNotificacion = models.DateTimeField()
-    numjui = models.CharField(max_length=255)
-    nombTribunal = models.CharField(max_length=255)
-    demandante = models.CharField(max_length=255)
-    demandado = models.CharField(max_length=255)
-    repre = models.CharField(max_length=255)
-    mandante = models.CharField(max_length=255)
-    domicilio = models.CharField(max_length=255)
-    comuna = models.CharField(max_length=255)
-    encargo = models.CharField(max_length=255)
-    soli = models.CharField(max_length=255)
-    arancel = models.IntegerField()
-    arancel_nombre = models.CharField(max_length=255, null=True, blank=True)  # Nuevo campo
-    estadoNoti = models.IntegerField()
-    estadoCausa = models.IntegerField()
-    actu = models.CharField(max_length=255)
 
-    class Meta:
-        managed = False
-        db_table = 'notificacion'
         
    
 
@@ -126,3 +105,28 @@ class Historial(models.Model):
     class Meta:
         db_table = 'Historial'  # Nombre de la tabla en la base de datos
         managed = False
+        
+
+
+
+class Notificacion(models.Model):
+    fechaNotificacion = models.DateTimeField()
+    numjui = models.CharField(max_length=255)
+    nombTribunal = models.CharField(max_length=255)
+    demandante = models.CharField(max_length=255)
+    demandado = models.CharField(max_length=255)
+    repre = models.CharField(max_length=255)
+    mandante = models.CharField(max_length=255)
+    domicilio = models.CharField(max_length=255)
+    comuna = models.CharField(max_length=255)
+    encargo = models.CharField(max_length=255)
+    soli = models.CharField(max_length=255)
+    arancel = models.IntegerField()
+    arancel_nombre = models.CharField(max_length=255)  # Nuevo campo
+    estadoNoti = models.IntegerField()
+    estadoCausa = models.IntegerField()
+    actu = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'notificacion'
