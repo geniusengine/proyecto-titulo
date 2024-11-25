@@ -22,28 +22,7 @@ class Usuario(models.Model):
         return self.username  # Representación en cadena del objeto
     
     
-class Estampado(models.Model):
-    fechaNotificacion = models.DateField()
-    numjui = models.CharField(max_length=50)
-    nomb_tribunal = models.CharField(max_length=100)
-    demandante = models.CharField(max_length=100)
-    demandado = models.CharField(max_length=100)
-    repre = models.CharField(max_length=100)
-    mandante = models.CharField(max_length=100)
-    domicilio = models.CharField(max_length=200)
-    comuna = models.CharField(max_length=100)
-    encargo = models.CharField(max_length=100)
-    soli = models.TextField()
-    arancel = models.DecimalField(max_digits=10, decimal_places=2)
 
-    class Meta:
-        managed = False
-        db_table = 'demanda'
-    
-    def __str__(self):
-        return f"{self.numjui} - {self.demandante} CON {self.demandado}"
-    
-from django.db import models
 
 class Demanda(models.Model):
     numjui = models.CharField(max_length=255)

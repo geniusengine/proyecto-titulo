@@ -1,1 +1,15 @@
 2024-11-20 09:27:24,907 - WARNING - Not Found: /favicon.ico
+2024-11-20 09:58:30,320 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py changed, reloading.
+2024-11-20 10:02:42,013 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py changed, reloading.
+2024-11-20 12:39:15,702 - WARNING - Not Found: /estampar/40/
+2024-11-20 12:43:07,424 - WARNING - Not Found: /estampar/40/
+2024-11-20 12:45:23,411 - INFO - C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py changed, reloading.
+2024-11-20 16:55:09,034 - ERROR - Internal Server Error: /descargar_documento/48/busquedaN/
+Traceback (most recent call last):
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\danie\AppData\Local\Programs\Python\Python310\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\danie\Desktop\proyecto titulo\Causa1\views.py", line 272, in descargar_documento
+    f"a fin de notificarle la resolución de fecha {notificacion.fecha_resolucion}, junto al escrito que antecede. "
+AttributeError: 'Notificacion' object has no attribute 'fecha_resolucion'

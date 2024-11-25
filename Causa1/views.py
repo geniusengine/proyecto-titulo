@@ -255,7 +255,7 @@ def descargar_documento(request, estampado_id, tipo_estampado):
             f"BÚSQUEDA NEGATIVA: Certifico haber buscado al(la) demandado(a) "
             f"{notificacion.demandado}, con domicilio en {notificacion.domicilio}, {notificacion.comuna}, "
             f"especialmente el día {fecha_actual}, siendo las {hora_actual} horas, a fin de notificarle la resolución "
-            f"de fecha {notificacion.fecha_resolucion}. Diligencia que no se llevó a efecto por cuanto el(la) demandado(a) "
+            f"de fecha . Diligencia que no se llevó a efecto por cuanto el(la) demandado(a) "
             f"no fue habido(a). DOY FE."
         )
     elif tipo_estampado == "positivaP":
@@ -284,6 +284,8 @@ def descargar_documento(request, estampado_id, tipo_estampado):
     return response
 
 
+from datetime import datetime  # Importar módulo para manejar fechas
+
 def crear_demanda(request):
     if request.method == "POST":
         form = DemandaForm(request.POST)
@@ -299,8 +301,12 @@ def crear_demanda(request):
                 messages.error(request, "El valor del arancel es inválido.")
                 return redirect('crear_demanda')
 
+            # Genera la fecha actual
+            fecha_actual = datetime.now()
+
             # Datos a insertar
             datos_a_insertar = {
+                "fechaNotificacion": fecha_actual,
                 "numjui": form.cleaned_data['numjui'],
                 "nombTribunal": form.cleaned_data['nombTribunal'],
                 "demandante": form.cleaned_data['demandante'],
@@ -322,9 +328,10 @@ def crear_demanda(request):
             try:
                 with connection.cursor() as cursor:
                     cursor.execute("""
-                        INSERT INTO demanda (numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        INSERT INTO notificacion (fechaNotificacion, numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """, [
+                        datos_a_insertar['fechaNotificacion'],
                         datos_a_insertar['numjui'],
                         datos_a_insertar['nombTribunal'],
                         datos_a_insertar['demandante'],
@@ -358,6 +365,7 @@ def crear_demanda(request):
         'actu_choices': actu_choices,
         'arancel_choices': arancel_choices,
     })
+
 
 
 
