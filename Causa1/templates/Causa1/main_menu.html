@@ -2,69 +2,48 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Menú Principal</title>
-    <style>
-        /* Estilos básicos para centrar el contenido */
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-
-        /* Contenedor del menú */
-        .menu-container {
-            text-align: center;
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Título del menú */
-        h1 {
-            font-size: 36px;
-            font-weight: bold;
-            color: #333333;
-            margin-bottom: 20px;
-            font-family: 'Georgia', serif;
-        }
-
-        /* Botones de acción */
-        button {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            font-size: 18px;
-            font-weight: bold;
-            color: #ffffff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificame.cl</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
 </head>
 <body>
-    <div class="menu-container">
-        <h1>Menú Principal</h1>
-        <form action="{% url 'login' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Iniciar Sesión</button>
-        </form>
-        <form action="{% url 'register' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Registro (Usuario y Contraseña Designados)</button>
-        </form>
+    <!-- Menú lateral -->
+    <div class="sidebar" id="sidebar">
+        <h2>Menú Principal</h2>
+        <a href="{% url 'login' %}">Iniciar Sesión</a>
+        <a href="{% url 'register' %}">Registrar Usuario</a>
+        <div class="footer">
+            <p>Desarrollado por:</p>
+            <ul>
+                <li>Daniel Cáceres</li>
+                <li>Carlos Moyano</li>
+                <li>Matías Traslaviña</li>
+            </ul>
+            <p>© 2024 Notificame.cl</p>
+        </div>
     </div>
+
+    <!-- Botón del menú hamburguesa -->
+    <button class="burger-menu" id="burger-menu" onclick="toggleMenu()">☰</button>
+
+    <!-- Contenido principal -->
+    <div class="content">
+        
+        <div class="image-container">
+            <img src="{% static 'notificame2.png' %}" alt="Notificame.cl Imagen" class="background-image">
+        </div>
+        
+    </div>
+
+    <script>
+        // Función para abrir y cerrar el menú lateral
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.querySelector('.content');
+            sidebar.classList.toggle('hidden');
+            content.classList.toggle('shifted');
+        }
+    </script>
 </body>
 </html>

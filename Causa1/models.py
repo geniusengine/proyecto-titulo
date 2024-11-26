@@ -89,23 +89,24 @@ class Historial(models.Model):
 
 
 class Notificacion(models.Model):
-    fechaNotificacion = models.DateTimeField()
-    numjui = models.CharField(max_length=255)
-    nombTribunal = models.CharField(max_length=255)
-    demandante = models.CharField(max_length=255)
-    demandado = models.CharField(max_length=255)
-    repre = models.CharField(max_length=255)
-    mandante = models.CharField(max_length=255)
-    domicilio = models.CharField(max_length=255)
-    comuna = models.CharField(max_length=255)
-    encargo = models.CharField(max_length=255)
-    soli = models.CharField(max_length=255)
-    arancel = models.IntegerField()
-    arancel_nombre = models.CharField(max_length=255, null=True, blank=True)  # Nuevo campo
-    estadoNoti = models.IntegerField()
-    estadoCausa = models.IntegerField()
-    actu = models.CharField(max_length=255)
+    id = models.AutoField(primary_key=True)
+    fechaNotificacion = models.DateTimeField(null=True, blank=True)
+    numjui = models.CharField(max_length=255, null=True, blank=True)
+    nombTribunal = models.CharField(max_length=255, null=True, blank=True)
+    demandante = models.CharField(max_length=255, null=True, blank=True)
+    demandado = models.CharField(max_length=255, null=True, blank=True)
+    repre = models.CharField(max_length=255, null=True, blank=True)
+    mandante = models.CharField(max_length=255, null=True, blank=True)
+    domicilio = models.CharField(max_length=255, null=True, blank=True)
+    comuna = models.CharField(max_length=255, null=True, blank=True)
+    encargo = models.CharField(max_length=255, null=True, blank=True)
+    soli = models.CharField(max_length=255, null=True, blank=True)
+    arancel = models.IntegerField(null=True, blank=True)
+    estadoNoti = models.IntegerField(null=True, blank=True)
+    estadoCausa = models.IntegerField(null=True, blank=True)
+    actu = models.CharField(max_length=255, null=True, blank=True)
+    arancel_nombre = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
-        managed = False
+        managed = False  # Si no quieres que Django administre la tabla
         db_table = 'notificacion'

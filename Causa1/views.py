@@ -13,7 +13,7 @@ import bcrypt
 from django.http import HttpResponse
 from docx import Document
 from datetime import datetime
-from .models import Estampado
+
 from .forms import DemandaForm
 from .models import Demanda
 from django.urls import reverse
@@ -73,11 +73,12 @@ def register_view(request):
 logging.basicConfig(filename='registro.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def login_view(request):
+    almacen_mensajes = get_messages(request)
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         # Recupera los mensajes y asegura que desaparezcan después de mostrarse
-        almacen_mensajes = get_messages(request)
+      
 
         if username and password:
             try:
@@ -159,34 +160,78 @@ def register_view(request):
 #Dashboar 
 
 
-from .utils import verificar_y_actualizar_esquema
+
+from django.utils.timezone import now
+from datetime import timedelta
 
 def dashboard(request):
+    """
+    Vista principal del dashboard que muestra las notificaciones.
+    """
+    almacen_mensajes = get_messages(request)
     # Verificar si el usuario ha iniciado sesión
     if 'user_id' not in request.session:
         messages.error(request, "Debes iniciar sesión primero.")
         return redirect('login')
-    
-    # Validar y actualizar el esquema de la base de datos
-    verificar_y_actualizar_esquema()
-    
-    # Eliminar demandas en verde con más de 5 minutos
-    
 
     # Obtener el usuario actual
-    user_id = request.session['user_id']
-    usuario = Usuario.objects.get(id=user_id)
-    
-    # Recupera los mensajes y asegura que desaparezcan después de mostrarse
-    almacen_mensajes = messages.get_messages(request)
-    
-    # Cargar los datos de Notificacion si el usuario está autenticado
-    causas = Notificacion.objects.all().values(
-        'fecha_notificacion', 'numjui', 'nombTribunal', 'demandante', 'demandado',
-        'repre', 'mandante', 'domicilio', 'comuna', 'encargo', 'resultado',
-        'arancel', 'arancel_nombre', 'actu', 'estado_notificacion', 'estado_causa'
+    try:
+        user_id = request.session['user_id']
+        usuario = Usuario.objects.get(id=user_id)
+    except Usuario.DoesNotExist:
+        messages.error(request, "Usuario no encontrado.")
+        return redirect('login')
+
+    # Filtrar causas activas (estadoNoti y estadoCausa en 1)
+    tiempo_limite = now() - timedelta(minutes=5)
+    causas_verdes = Notificacion.objects.filter(
+        estadoNoti=1, estadoCausa=1, fechaNotificacion__lte=tiempo_limite
     )
-    
+
+    # Mover causas a `AUD_notificacion`
+    for causa in causas_verdes:
+        AUD_notificacion.objects.create(
+            fechaNotificacion=causa.fechaNotificacion,
+            numjui=causa.numjui,
+            nombTribunal=causa.nombTribunal,
+            demandante=causa.demandante,
+            demandado=causa.demandado,
+            repre=causa.repre,
+            mandante=causa.mandante,
+            domicilio=causa.domicilio,
+            comuna=causa.comuna,
+            encargo=causa.encargo,
+            soli=causa.soli,
+            arancel=causa.arancel,
+            arancel_nombre=causa.arancel_nombre,
+            estadoNoti=causa.estadoNoti,
+            estadoCausa=causa.estadoCausa,
+            actu=causa.actu
+        )
+        # Eliminar causa de `Notificacion`
+        causa.delete()
+
+    # Cargar los datos restantes para el dashboard
+    causas = Notificacion.objects.all().values(
+        'id',
+        'fechaNotificacion',
+        'numjui',
+        'nombTribunal',
+        'demandante',
+        'demandado',
+        'repre',
+        'mandante',
+        'domicilio',
+        'comuna',
+        'encargo',
+        'soli',
+        'arancel',
+        'arancel_nombre',
+        'actu',
+        'estadoNoti',
+        'estadoCausa'
+    )
+
     return render(request, 'Causa1/dashboard.html', {
         'causas': causas,
         'nombreusuario': usuario.nombreusuario,
@@ -195,38 +240,48 @@ def dashboard(request):
     })
 
 def notificar(request, causa_id):
+    """
+    Cambiar el estado de notificación de una causa específica.
+    """
     causa = get_object_or_404(Notificacion, id=causa_id)
+
     if request.method == "POST":
-        if causa.estadoNoti == 0:  # Solo cambia si es 0
-            causa.estadoNoti = 1  # Cambia el valor a 1
+        if causa.estadoNoti == 0:  # Solo permite cambiar si el estado es 0 (no notificado)
+            causa.estadoNoti = 1  # Cambiar el estado a 1 (notificado)
             causa.save()
             messages.success(request, "Causa notificada correctamente.")
         else:
             messages.warning(request, "Esta causa ya ha sido notificada.")
+
     return redirect('dashboard')
 
+
 def estampar(request, causa_id):
+    """
+    Cambiar el estado de estampado de una causa específica y generar un documento si aplica.
+    """
     causa = get_object_or_404(Notificacion, id=causa_id)
-    
+
     if request.method == "POST":
         tipo_estampado = request.POST.get("tipo_estampado")
-        
-        # Verificamos si la causa puede ser estampada
-        if causa.estadoNoti == 1:
-            if causa.estadoCausa == 0:
-                causa.estadoCausa = 1
-                causa.fechaNotificacion = timezone.now()  # Actualiza la fecha de notificación a la fecha actual
+
+        # Verificar si la causa puede ser estampada
+        if causa.estadoNoti == 1:  # Solo se puede estampar si la causa ya está notificada
+            if causa.estadoCausa == 0:  # Solo permite estampar si aún no está estampada
+                causa.estadoCausa = 1  # Cambiar el estado a estampado
+                causa.fechaNotificacion = timezone.now()  # Actualizar la fecha de notificación
                 causa.save()
                 messages.success(request, "Causa estampada correctamente.")
-                
-                # Redirigir a la función de descarga con los parámetros necesarios
+
+                # Redirigir a la función de descarga del documento
                 return redirect('descargar_documento', estampado_id=causa.id, tipo_estampado=tipo_estampado)
             else:
                 messages.warning(request, "Esta causa ya ha sido estampada.")
         else:
             messages.warning(request, "La causa debe ser notificada antes de estampar.")
-    
+
     return redirect('dashboard')
+
 
 
 
@@ -291,7 +346,7 @@ def descargar_documento(request, estampado_id, tipo_estampado):
     return response
 
 
-from datetime import datetime  # Importar módulo para manejar fechas
+
 
 def crear_demanda(request):
     if request.method == "POST":
@@ -308,52 +363,45 @@ def crear_demanda(request):
                 messages.error(request, "El valor del arancel es inválido.")
                 return redirect('crear_demanda')
 
-            # Genera la fecha actual
-            fecha_actual = datetime.now()
-
-            # Datos a insertar
-            datos_a_insertar = {
-                "fechaNotificacion": fecha_actual,
-                "numjui": form.cleaned_data['numjui'],
-                "nombTribunal": form.cleaned_data['nombTribunal'],
-                "demandante": form.cleaned_data['demandante'],
-                "demandado": form.cleaned_data['demandado'],
-                "repre": form.cleaned_data['repre'],
-                "mandante": form.cleaned_data['mandante'],
-                "domicilio": form.cleaned_data['domicilio'],
-                "comuna": form.cleaned_data['comuna'],
-                "encargo": form.cleaned_data['encargo'],
-                "soli": form.cleaned_data['soli'],
-                "arancel": arancel_valor,
-                "arancel_nombre": arancel_nombre,
-                "actu": form.cleaned_data['actu']
-            }
-
-            # Imprime los datos en la consola para depuración
-            print("Datos a insertar en la base de datos:", datos_a_insertar)
-
+            # Crear la instancia de Demanda
             try:
-                with connection.cursor() as cursor:
-                    cursor.execute("""
-                        INSERT INTO notificacion (fechaNotificacion, numjui, nombTribunal, demandante, demandado, repre, mandante, domicilio, comuna, encargo, soli, arancel, arancel_nombre, actu)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    """, [
-                        datos_a_insertar['fechaNotificacion'],
-                        datos_a_insertar['numjui'],
-                        datos_a_insertar['nombTribunal'],
-                        datos_a_insertar['demandante'],
-                        datos_a_insertar['demandado'],
-                        datos_a_insertar['repre'],
-                        datos_a_insertar['mandante'],
-                        datos_a_insertar['domicilio'],
-                        datos_a_insertar['comuna'],
-                        datos_a_insertar['encargo'],
-                        datos_a_insertar['soli'],
-                        datos_a_insertar['arancel'],
-                        datos_a_insertar['arancel_nombre'],
-                        datos_a_insertar['actu']
-                    ])
-                messages.success(request, "Demanda creada exitosamente.")
+                demanda = Demanda.objects.create(
+                    numjui=form.cleaned_data['numjui'],
+                    nombTribunal=form.cleaned_data['nombTribunal'],
+                    demandante=form.cleaned_data['demandante'],
+                    demandado=form.cleaned_data['demandado'],
+                    repre=form.cleaned_data['repre'],
+                    mandante=form.cleaned_data['mandante'],
+                    domicilio=form.cleaned_data['domicilio'],
+                    comuna=form.cleaned_data['comuna'],
+                    encargo=form.cleaned_data['encargo'],
+                    soli=form.cleaned_data['soli'],
+                    arancel=arancel_valor,
+                    arancel_nombre=arancel_nombre,
+                    actu=form.cleaned_data['actu']
+                )
+
+                # Crear la instancia de Notificacion con los mismos datos
+                Notificacion.objects.create(
+                    fechaNotificacion=timezone.now(),
+                    numjui=demanda.numjui,
+                    nombTribunal=demanda.nombTribunal,
+                    demandante=demanda.demandante,
+                    demandado=demanda.demandado,
+                    repre=demanda.repre,
+                    mandante=demanda.mandante,
+                    domicilio=demanda.domicilio,
+                    comuna=demanda.comuna,
+                    encargo=demanda.encargo,
+                    soli=demanda.soli,
+                    arancel=demanda.arancel,
+                    arancel_nombre=demanda.arancel_nombre,
+                    actu=demanda.actu,
+                    estadoNoti=0,  # Inicializa el estado como no notificado
+                    estadoCausa=0  # Inicializa el estado como pendiente
+                )
+
+                messages.success(request, "Demanda y Notificación creadas exitosamente.")
                 return redirect('lista_demandas')
             except Exception as e:
                 messages.error(request, f"Error al crear la demanda: {e}")
@@ -372,6 +420,7 @@ def crear_demanda(request):
         'actu_choices': actu_choices,
         'arancel_choices': arancel_choices,
     })
+
 
 
 

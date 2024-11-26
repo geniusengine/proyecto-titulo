@@ -1,0 +1,108 @@
+/* Estilos generales */
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(180deg, #F5EFE6, #D3C4A6);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Título */
+h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #3C2F2F;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de botones */
+.button-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.menu-button {
+    text-decoration: none;
+    background-color: #6D4C41;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.menu-button:hover {
+    background-color: #5A3A2A;
+}
+
+/* Contenedor de la tabla */
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    min-width: 1000px; /* Asegura que la tabla tenga un ancho mínimo */
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th, td {
+    padding: 8px 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 0.9em; /* Fuente más pequeña para compactar */
+}
+
+th {
+    background-color: #3C2F2F;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/* Mensaje de tabla vacía */
+.empty-message {
+    text-align: center;
+    color: #666;
+    font-size: 1.2em;
+    padding: 20px;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+    th, td {
+        padding: 6px 8px;
+        font-size: 0.8em;
+    }
+
+    .menu-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+}

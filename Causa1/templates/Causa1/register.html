@@ -2,126 +2,38 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
-    <style>
-        /* Estilos generales */
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            color: #333;
-        }
-
-        /* Estilos del contenedor principal */
-        h1 {
-            text-align: center;
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        form {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-
-        /* Estilos para etiquetas y entradas */
-        label {
-            display: block;
-            font-weight: bold;
-            margin: 15px 0 5px;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        /* Botón de registro */
-        button[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: #5a67d8;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #4c51bf;
-        }
-
-        /* Botón de volver al menú */
-        .back-button {
-            margin-top: 15px;
-            display: inline-block;
-            text-decoration: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #5a67d8;
-            border: 2px solid #5a67d8;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .back-button:hover {
-            background-color: #5a67d8;
-            color: #fff;
-        }
-
-        /* Mensaje de alerta */
-        .message {
-            color: #e53e3e;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-    </style>
+    <title>Registro de Usuario - Notificame.cl</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
 </head>
 <body>
-    <form method="post" action="{% url 'register' %}">
+    <div class="register-container">
         <h1>Registro de Usuario</h1>
-        {% csrf_token %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="message">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        
-        <label for="name">Nombre:</label>
-        <input type="text" name="name" required>
-        
-        <label for="apellido">Apellido:</label>
-        <input type="text" name="apellido" required>
-        
-        <label for="username">Usuario:</label>
-        <input type="text" name="username" required>
-        
-        <label for="password">Contraseña:</label>
-        <input type="password" name="password" required>
-        
-        <button type="submit">Registrar</button>
-    </form>
+        <form method="post" action="{% url 'register' %}" class="register-form">
+            {% csrf_token %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            <label for="name">Nombre:</label>
+            <input type="text" name="name" id="name" required placeholder="Ingresa tu nombre">
+            
+            <label for="apellido">Apellido:</label>
+            <input type="text" name="apellido" id="apellido" required placeholder="Ingresa tu apellido">
+            
+            <label for="username">Usuario:</label>
+            <input type="text" name="username" id="username" required placeholder="Ingresa tu nombre de usuario">
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" name="password" id="password" required placeholder="Crea una contraseña segura">
+            
+            <button type="submit">Registrar</button>
+        </form>
 
-    <!-- Botón para volver al menú principal -->
-    <a href="{% url 'main_menu' %}" class="back-button">Volver al Menú Principal</a>
+        <!-- Botón para volver al menú principal -->
+        <a href="{% url 'main_menu' %}" class="back-button">Volver al Menú Principal</a>
+    </div>
 </body>
 </html>

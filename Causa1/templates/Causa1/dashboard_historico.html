@@ -2,96 +2,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Histórico</title>
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            font-size: 2em;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Estilos del contenedor de botones */
-        .button-container {
-            margin-bottom: 15px;
-        }
-
-        .button-container a {
-            text-decoration: none;
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .button-container a:hover {
-            background-color: #0056b3;
-        }
-
-        /* Estilos de la tabla */
-        table {
-            width: 100%;
-            max-width: 1200px;
-            border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            margin-top: 10px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #fff;
-        }
-
-        /* Mensaje de tabla vacía */
-        .empty-message {
-            text-align: center;
-            color: #666;
-            font-size: 1.2em;
-            padding: 20px;
-        }
-    </style>
+    <title>Dashboard Histórico - Notificame.cl</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard_historico.css' %}">
 </head>
 <body>
     <h1>Dashboard Histórico</h1>
 
     <!-- Botones para navegar -->
     <div class="button-container">
-        <a href="{% url 'dashboard' %}">Volver al Dashboard Principal</a>
-        <a href="{% url 'logout' %}">Cerrar Sesión</a>
+        <a href="{% url 'dashboard' %}" class="menu-button">Volver al Dashboard Principal</a>
+        <a href="{% url 'logout' %}" class="menu-button">Cerrar Sesión</a>
     </div>
 
     <!-- Tabla para mostrar el historial de notificaciones -->
@@ -110,7 +31,7 @@
                 <th>Encargo</th>
                 <th>Resultado</th>
                 <th>Arancel</th>
-                <th>Actuacion</th>
+                <th>Actuación</th>
                 <th>Estado Notificación</th>
                 <th>Estado Causa</th>
             </tr>

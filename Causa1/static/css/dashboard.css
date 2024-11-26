@@ -1,0 +1,184 @@
+/* Estilos Generales */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(180deg, #f4f4f9, #e0d6c2);
+    height: 100vh;
+    display: flex;
+}
+
+/* Menú Lateral */
+.sidebar {
+    width: 300px;
+    background-color: #3C2F2F;
+    color: white;
+    position: fixed;
+    height: 100%;
+    left: -350px;
+    top: 0;
+    padding: 60px 20px;
+    z-index: 2;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.active {
+    transform: translateX(330px);
+}
+
+.sidebar h2 {
+    font-size: 22px;
+    color: #F4A261;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    padding: 10px 15px;
+    background-color: #6D4C41;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar a:hover {
+    background-color: #5A3A2A;
+}
+
+.footer {
+    margin-top: auto;
+    font-size: 14px;
+    text-align: center;
+    color: #ccc;
+}
+
+/* Botón Menú Hamburguesa */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    background-color: #6D4C41;
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenido Principal */
+.content {
+    margin-left: 300px;
+    width: 100%;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.content h1 {
+    font-size: 36px;
+    text-align: center;
+    color: #3C2F2F;
+    margin-bottom: 20px;
+}
+
+/* Barra de Búsqueda */
+.search-bar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #3C2F2F;
+    color: white;
+}
+
+.row-green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.row-yellow {
+    background-color: #FFC107;
+    color: black;
+}
+
+.row-red {
+    background-color: #F44336;
+    color: white;
+}
+
+/* Leyenda de Colores */
+.color-legend {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.color-legend span {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.legend-green {
+    background-color: #4CAF50;
+}
+
+.legend-yellow {
+    background-color: #FFC107;
+    color: black;
+}
+
+.legend-red {
+    background-color: #F44336;
+}
+
+.dashboard-header .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-header .user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dashboard-header .user-info span {
+    font-size: 16px;
+    color: #3C2F2F;
+    font-weight: bold;
+}

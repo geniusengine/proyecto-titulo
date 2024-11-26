@@ -1,0 +1,173 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+    background: linear-gradient(180deg, #F5EFE6, #D3C4A6); /* Tonos cálidos */
+}
+
+/* Menú lateral */
+.sidebar {
+    width: 300px;
+    background-color: #3C2F2F; /* Marrón oscuro */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px 20px;
+    position: fixed;
+    height: 100%;
+    left: -400px;
+    top: 0;
+    z-index: 2;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.active {
+    transform: translateX(400px);
+}
+
+.sidebar h2 {
+    font-size: 28px; /* Más grande */
+    color: #ffffff; /* Blanco */
+    font-family: 'Georgia', serif; /* Fuente elegante */
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para resaltar */
+}
+
+/* Formulario de login */
+.login-form {
+    width: 90%;
+    max-width: 300px;
+    background-color: #3C2F2F;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.login-form label {
+    display: block;
+    font-size: 18px; /* Un poco más grande */
+    margin-bottom: 5px;
+    color: #ffffff; /* Blanco */
+    font-family: 'Georgia', serif; /* Fuente elegante */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Sombra ligera */
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px; /* Botón más grande */
+    color: white;
+    background-color: #6D4C41; /* Marrón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.login-form button:hover {
+    background-color: #5A3A2A;
+}
+
+/* Botones del menú lateral */
+.menu-button {
+    font-size: 16px;
+    padding: 10px 15px;
+    margin: 10px 0;
+    width: 100%;
+    text-align: center;
+    background-color: #F4A261; /* Naranja */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.menu-button:hover {
+    background-color: #E68A41;
+}
+
+/* Footer */
+.sidebar .footer {
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: left;
+    color: #ccc;
+}
+
+/* Botón del menú hamburguesa */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    background-color: #6D4C41;
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenido principal */
+.content {
+    margin-left: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.content .title {
+    font-size: 56px; /* Título más grande */
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para destacar */
+    color: #ffffff; /* Blanco */
+    margin-bottom: 20px;
+}
+
+/* Imagen */
+.image-container {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.background-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
